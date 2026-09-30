@@ -356,6 +356,59 @@ footer {
 @media (max-width: 480px) {
   main { width: calc(100% - 16px); margin-top: 12px; }
   .topbar { padding: 10px 12px; }
+
+  /* =========================================================
+   NAVIGATION LINKS — styled exactly like the original tabs
+   ========================================================= */
+
+.nav {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0 !important;
+  padding: 0 24px !important;
+  border-bottom: 1px solid var(--line) !important;
+  background: #090d10 !important;
+}
+
+.nav-link {
+  box-sizing: border-box !important;
+  display: block !important;
+  background: transparent !important;
+  color: #839399 !important;
+  border: 0 !important;
+  border-right: 1px solid var(--line) !important;
+  padding: 11px 16px !important;
+  margin: 0 !important;
+
+  font-family: inherit !important;
+  font-size: 10px !important;
+  font-weight: normal !important;
+  letter-spacing: 1px !important;
+  line-height: normal !important;
+
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+.nav-link:first-child {
+  border-left: 1px solid var(--line) !important;
+}
+
+.nav-link:hover {
+  color: var(--cyan) !important;
+  background: rgba(93, 228, 255, .035) !important;
+}
+
+.nav-link.active {
+  color: var(--cyan) !important;
+  background: rgba(93, 228, 255, .045) !important;
+}
+
+@media (max-width: 480px) {
+  .nav-link {
+    white-space: nowrap !important;
+  }
+}
   .nav { padding: 0 12px; overflow-x: auto; flex-wrap: nowrap; }
   .nav button { white-space: nowrap; }
   .panel, .subject-layout, .finger-section { padding: 15px; }
