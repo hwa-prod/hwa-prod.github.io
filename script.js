@@ -1,5 +1,5 @@
 const DATABASE = {
-  "EVD-1047": {
+  "EVD-2967": {
     name: "ELENA VOSS",
     alias: "VOSS",
     dob: "14 NOV 1991",
@@ -11,16 +11,16 @@ const DATABASE = {
     photo: "assets/persons/EVD-1047/person.jpg",
     note: "Latent print recovered from evidence item E-17. Database comparison returned a high-confidence association with the subject record.",
     fingers: {
-      "LEFT THUMB": "assets/persons/EVD-1047/left-thumb.jpg",
-      "LEFT INDEX": "assets/persons/EVD-1047/left-index.jpg",
-      "LEFT MIDDLE": "assets/persons/EVD-1047/left-middle.jpg",
-      "LEFT RING": "assets/persons/EVD-1047/left-ring.jpg",
-      "LEFT LITTLE": "assets/persons/EVD-1047/left-little.jpg",
-      "RIGHT THUMB": "assets/persons/EVD-1047/right-thumb.jpg",
-      "RIGHT INDEX": "assets/persons/EVD-1047/right-index.jpg",
-      "RIGHT MIDDLE": "assets/persons/EVD-1047/right-middle.jpg",
-      "RIGHT RING": "assets/persons/EVD-1047/right-ring.jpg",
-      "RIGHT LITTLE": "assets/persons/EVD-1047/right-little.jpg"
+      "LEFT THUMB": "296__M_Left_thumb_finger_Zcut.BMP",
+      "LEFT INDEX": "296__M_Left_index_finger_Zcut.BMP",
+      "LEFT MIDDLE": "296__M_Left_middle_finger_Zcut.BMP",
+      "LEFT RING": "296__M_Left_ring_finger_Zcut.BMP",
+      "LEFT LITTLE": "296__M_Left_little_finger_Zcut.BMP",
+      "RIGHT THUMB": "296__M_Right_thumb_finger_Zcut.BMP",
+      "RIGHT INDEX": "296__M_Right_index_finger_Zcut.BMP",
+      "RIGHT MIDDLE": "296__M_Right_middle_finger_Zcut.BMP",
+      "RIGHT RING": "296__M_Right_ring_finger_Zcut.BMP",
+      "RIGHT LITTLE": "296__M_Right_little_finger_Zcut.BMP"
     }
   },
 
