@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#05080a">
+  <title>FBI • Integrated Fingerprint Identification System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="seal">FBI</div>
+      <div>
+        <div class="agency">FEDERAL BUREAU OF INVESTIGATION</div>
+        <div class="system-name">INTEGRATED FINGERPRINT IDENTIFICATION SYSTEM</div>
+      </div>
+    </div>
+    <div class="status-group">
+      <span class="status-dot"></span>
+      <span>SYSTEM ONLINE</span>
+      <span class="divider">|</span>
+      <span>SECURE TERMINAL</span>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <button>CASE FILES</button>
+    <button class="active">BIOMETRICS</button>
+    <button>IDENTIFICATION</button>
+    <button>SUBJECTS</button>
+    <button>REPORTS</button>
+    <button>ADMIN</button>
+  </nav>
+
+  <main>
+    <section class="terminal">
+      <div class="terminal-head">
+        <div>
+          <span class="kicker">AUTHORIZED PERSONNEL ONLY</span>
+          <h1>LATENT PRINT IDENTIFICATION</h1>
+        </div>
+        <div class="terminal-code">IFIS / NODE 07<br>ENCRYPTION: ACTIVE</div>
+      </div>
+
+      <div class="grid">
+        <section class="panel evidence-panel">
+          <div class="panel-title">01 / EVIDENCE INPUT</div>
+
+          <label for="evidenceId">EVIDENCE ID</label>
+          <input id="evidenceId" type="text" autocomplete="off" placeholder="EVD-1047" maxlength="30">
+
+          <label>LATENT PRINT IMAGE</label>
+          <div id="dropZone" class="drop-zone">
+            <input id="fingerprintFile" type="file" accept="image/*" hidden>
+            <div class="upload-icon">⌁</div>
+            <strong>DROP FINGERPRINT IMAGE</strong>
+            <span>or click to select evidence photograph</span>
+            <small>IMAGE REMAINS LOCAL TO THIS TERMINAL</small>
+          </div>
+
+          <div id="previewWrap" class="preview-wrap hidden">
+            <img id="fingerprintPreview" alt="Uploaded fingerprint evidence">
+            <div class="preview-meta">
+              <span id="fileName">NO FILE</span>
+              <button id="removeFile" type="button">REMOVE</button>
+            </div>
+          </div>
+
+          <button id="analyzeBtn" class="primary-btn" type="button">
+            INITIATE BIOMETRIC ANALYSIS
+          </button>
+
+          <div class="microcopy">
+            <span>INPUT SOURCE: LOCAL EVIDENCE</span>
+            <span>PHOTO CONTENT: NON-DETERMINATIVE</span>
+            <span>IDENTIFIER ROUTING: EVIDENCE ID</span>
+          </div>
+        </section>
+
+        <section class="panel console-panel">
+          <div class="panel-title">02 / ANALYSIS CONSOLE</div>
+          <div id="console" class="console">
+            <div class="console-line muted">Awaiting evidence input...</div>
+          </div>
+
+          <div class="progress-label">
+            <span id="progressText">READY</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="progress-track">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+
+          <div class="button-bank">
+            <button>QUERY AFIS</button>
+            <button>ENCRYPTED LINK</button>
+            <button>CASE CROSS-REF</button>
+            <button>RUN QUALITY CHECK</button>
+            <button>COMPARE MINUTIAE</button>
+            <button>ARCHIVE</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="resultSection" class="result hidden">
+      <div id="matchResult"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>FEDERAL BUREAU OF INVESTIGATION • BIOMETRIC SERVICES</span>
+    <span>TRAINING / INVESTIGATIVE SIMULATION</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

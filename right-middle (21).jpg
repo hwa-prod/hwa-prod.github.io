@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+<rect width="600" height="600" fill="#071014"/>
+<g fill="none" stroke="#5de4ff" stroke-width="3" opacity=".7">
+<path d="M90 360 C90 170 510 170 510 360 C510 500 90 500 90 360"/>
+<path d="M130 370 C130 210 470 210 470 370 C470 460 130 460 130 370"/>
+<path d="M170 380 C170 250 430 250 430 380 C430 425 170 425 170 380"/>
+<path d="M215 380 C215 285 385 285 385 380"/>
+</g>
+<text x="300" y="545" text-anchor="middle" fill="#53636a" font-family="monospace" font-size="20">REPLACE IMAGE</text>
+</svg>
