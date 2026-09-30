@@ -83,7 +83,8 @@ body { min-height: 100vh; }
   border-bottom: 1px solid var(--line);
   background: #090d10;
 }
-.nav button, .button-bank button {
+
+.nav-link {
   background: transparent;
   color: #839399;
   border: 0;
@@ -92,11 +93,24 @@ body { min-height: 100vh; }
   font: inherit;
   font-size: 10px;
   letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
 }
-.nav button:first-child { border-left: 1px solid var(--line); }
-.nav button.active { color: var(--cyan); background: rgba(93,228,255,.045); }
 
-main { width: min(1250px, calc(100% - 30px)); margin: 28px auto 50px; }
+.nav-link:first-child {
+  border-left: 1px solid var(--line);
+}
+
+.nav-link:hover {
+  color: var(--cyan);
+  background: rgba(93, 228, 255, .035);
+}
+
+.nav-link.active {
+  color: var(--cyan);
+  background: rgba(93, 228, 255, .045);
+}
 
 .terminal {
   border: 1px solid var(--line);
