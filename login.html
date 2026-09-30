@@ -1,0 +1,466 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#05080a">
+  <title>FBI • IFIS Secure Authentication</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ================================
+       LOGIN PAGE
+       ================================ */
+
+    .login-page {
+      min-height: calc(100vh - 150px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 20px;
+    }
+
+    .login-terminal {
+      width: 100%;
+      max-width: 620px;
+      border: 1px solid #26363d;
+      background: rgba(5, 8, 10, 0.94);
+      box-shadow: 0 0 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .login-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 18px 20px;
+      border-bottom: 1px solid #26363d;
+    }
+
+    .login-head h1 {
+      margin: 5px 0 0;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: #c5d0d4;
+    }
+
+    .login-code {
+      text-align: right;
+      color: #53636a;
+      font-size: 9px;
+      line-height: 1.7;
+      letter-spacing: 1px;
+    }
+
+    .login-body {
+      padding: 28px;
+    }
+
+    .security-banner {
+      border: 1px solid #26363d;
+      background: rgba(12, 18, 21, 0.8);
+      padding: 12px 14px;
+      margin-bottom: 25px;
+      color: #71838a;
+      font-size: 10px;
+      letter-spacing: 1px;
+      line-height: 1.7;
+    }
+
+    .security-banner strong {
+      color: #aebdc2;
+    }
+
+    .login-label {
+      display: block;
+      margin: 17px 0 7px;
+      color: #71838a;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+    }
+
+    .login-input {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #26363d;
+      background: #070b0d;
+      color: #b8c7cc;
+      padding: 12px;
+      outline: none;
+      font-family: inherit;
+      font-size: 12px;
+    }
+
+    .login-input:focus {
+      border-color: #536b74;
+      box-shadow: 0 0 8px rgba(80, 110, 120, 0.12);
+    }
+
+    .login-input::placeholder {
+      color: #34434a;
+    }
+
+    .login-button {
+      width: 100%;
+      margin-top: 24px;
+      padding: 12px;
+      border: 1px solid #526a73;
+      background: #10191d;
+      color: #aebdc2;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+    }
+
+    .login-button:hover {
+      background: #162329;
+      border-color: #71878f;
+      color: #d0dade;
+    }
+
+    .error-message {
+      display: none;
+      margin-top: 15px;
+      padding: 10px;
+      border: 1px solid #593737;
+      background: rgba(50, 15, 15, 0.25);
+      color: #a87575;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+
+    .error-message.visible {
+      display: block;
+    }
+
+    .system-log {
+      margin-top: 25px;
+      padding: 12px;
+      border-top: 1px solid #1d2a2f;
+      color: #45565d;
+      font-size: 9px;
+      line-height: 1.8;
+    }
+
+    .system-log .active {
+      color: #70858d;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 6px;
+      height: 10px;
+      background: #70858d;
+      margin-left: 4px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 45% {
+        opacity: 1;
+      }
+
+      46%, 100% {
+        opacity: 0;
+      }
+    }
+
+    .classification {
+      margin-top: 18px;
+      text-align: center;
+      color: #35434a;
+      font-size: 8px;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 600px) {
+      .login-page {
+        padding: 25px 12px;
+      }
+
+      .login-body {
+        padding: 20px;
+      }
+
+      .login-head {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .login-code {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="scanlines"></div>
+
+  <!-- ================================
+       HEADER
+       ================================ -->
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="seal">FBI</div>
+
+      <div>
+        <div class="agency">FEDERAL BUREAU OF INVESTIGATION</div>
+        <div class="system-name">
+          INTEGRATED FINGERPRINT IDENTIFICATION SYSTEM
+        </div>
+      </div>
+    </div>
+
+    <div class="status-group">
+      <span class="status-dot"></span>
+      <span>SYSTEM ONLINE</span>
+      <span class="divider">|</span>
+      <span>SECURE TERMINAL</span>
+    </div>
+  </header>
+
+
+  <!-- ================================
+       LOGIN TERMINAL
+       ================================ -->
+
+  <main class="login-page">
+
+    <section class="login-terminal">
+
+      <div class="login-head">
+
+        <div>
+          <span class="kicker">RESTRICTED ACCESS</span>
+          <h1>SECURE AUTHENTICATION</h1>
+        </div>
+
+        <div class="login-code">
+          IFIS / NODE 07<br>
+          AUTH GATE: 01<br>
+          ENCRYPTION: ACTIVE
+        </div>
+
+      </div>
+
+
+      <div class="login-body">
+
+        <div class="security-banner">
+          <strong>WARNING:</strong>
+          This terminal is restricted to authorized personnel.
+          All authentication attempts are logged and monitored.
+          Unauthorized access attempts may be recorded.
+        </div>
+
+
+        <form id="loginForm">
+
+          <label class="login-label" for="username">
+            USER IDENTIFICATION
+          </label>
+
+          <input
+            class="login-input"
+            id="username"
+            type="text"
+            autocomplete="off"
+            placeholder="ENTER USER ID"
+            required
+          >
+
+
+          <label class="login-label" for="password">
+            AUTHENTICATION KEY
+          </label>
+
+          <input
+            class="login-input"
+            id="password"
+            type="password"
+            autocomplete="off"
+            placeholder="ENTER PASSWORD"
+            required
+          >
+
+
+          <button class="login-button" type="submit">
+            AUTHENTICATE SESSION
+          </button>
+
+        </form>
+
+
+        <div id="errorMessage" class="error-message">
+          ACCESS DENIED — INCORRECT LOGIN OR PASSWORD
+        </div>
+
+
+        <div class="system-log">
+
+          <div>
+            <span class="active">[OK]</span>
+            SECURE CONNECTION ESTABLISHED
+          </div>
+
+          <div>
+            <span class="active">[OK]</span>
+            ENCRYPTED CHANNEL INITIALIZED
+          </div>
+
+          <div>
+            <span class="active">[OK]</span>
+            AUTHENTICATION SERVER ONLINE
+          </div>
+
+          <div>
+            [--] AWAITING USER CREDENTIALS<span class="cursor"></span>
+          </div>
+
+        </div>
+
+
+        <div class="classification">
+          FEDERAL SYSTEM • RESTRICTED • AUTHORIZED PERSONNEL ONLY
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    <span>FEDERAL BUREAU OF INVESTIGATION • BIOMETRIC SERVICES</span>
+    <span>TRAINING / INVESTIGATIVE SIMULATION</span>
+  </footer>
+
+
+  <!-- ================================
+       LOGIN LOGIC
+       ================================ -->
+
+  <script>
+
+    /*
+     * ==========================================
+     * PREDEFINED LOGIN CREDENTIALS
+     * ==========================================
+     *
+     * CHANGE THESE TWO VALUES TO WHATEVER
+     * LOGIN AND PASSWORD YOU WANT.
+     *
+     * Example:
+     *
+     * const CORRECT_LOGIN = "agent01";
+     * const CORRECT_PASSWORD = "FBI2026";
+     *
+     * IMPORTANT:
+     * This is a fictional front-end login.
+     * Because this is HTML/JavaScript running
+     * in the browser, it is NOT real security.
+     */
+
+    const CORRECT_LOGIN = "agent01";
+    const CORRECT_PASSWORD = "FBI2026";
+
+
+    /*
+     * ==========================================
+     * LOGIN FUNCTION
+     * ==========================================
+     */
+
+    const loginForm = document.getElementById("loginForm");
+    const errorMessage = document.getElementById("errorMessage");
+
+    let failedAttempts = 0;
+
+
+    loginForm.addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      const enteredLogin =
+        document.getElementById("username").value;
+
+      const enteredPassword =
+        document.getElementById("password").value;
+
+
+      /*
+       * Check credentials
+       */
+
+      if (
+        enteredLogin === CORRECT_LOGIN &&
+        enteredPassword === CORRECT_PASSWORD
+      ) {
+
+        /*
+         * Correct credentials:
+         * send the user to the main IFIS page.
+         */
+
+        window.location.href = "index.html";
+
+      } else {
+
+        /*
+         * Incorrect credentials:
+         * display the error message.
+         */
+
+        failedAttempts++;
+
+        errorMessage.textContent =
+          "ACCESS DENIED — INCORRECT LOGIN OR PASSWORD";
+
+        errorMessage.classList.add("visible");
+
+        /*
+         * Clear password after failed attempt.
+         */
+
+        document.getElementById("password").value = "";
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
+```
+
+### Change the login/password here
+
+Near the bottom, these are the only two lines you need to edit:
+
+```js
+const CORRECT_LOGIN = "agent01";
+const CORRECT_PASSWORD = "FBI2026";
+```
+
+For example:
+
+```js
+const CORRECT_LOGIN = "Diana";
+const CORRECT_PASSWORD = "ProjectIFIS172";
+```
+
+Then:
+
+**Correct → `index.html`**
+
+**Anything incorrect → `ACCESS DENIED — INCORRECT LOGIN OR PASSWORD`**
+
+One important thing: because this is a GitHub Pages/static HTML site, the credentials are visible to anyone who inspects the page source. So it's perfect for your **fictional game/simulation**, but it isn't a real authentication system.
