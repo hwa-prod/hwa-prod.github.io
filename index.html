@@ -1,5 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+  <style>
+  .nav {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0 !important;
+    padding: 0 24px !important;
+    border-bottom: 1px solid #253239 !important;
+    background: #090d10 !important;
+  }
+
+  .nav .nav-link {
+    display: block !important;
+    box-sizing: border-box !important;
+    background: transparent !important;
+    color: #839399 !important;
+    border: 0 !important;
+    border-right: 1px solid #253239 !important;
+    padding: 11px 16px !important;
+    margin: 0 !important;
+
+    font-family: "Courier New", Courier, monospace !important;
+    font-size: 10px !important;
+    font-weight: normal !important;
+    letter-spacing: 1px !important;
+    line-height: normal !important;
+
+    text-decoration: none !important;
+    cursor: pointer !important;
+  }
+
+  .nav .nav-link:first-child {
+    border-left: 1px solid #253239 !important;
+  }
+
+  .nav .nav-link:hover {
+    color: #5de4ff !important;
+    background: rgba(93, 228, 255, .035) !important;
+  }
+
+  .nav .nav-link.active {
+    color: #5de4ff !important;
+    background: rgba(93, 228, 255, .045) !important;
+  }
+</style>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
