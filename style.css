@@ -414,3 +414,34 @@ footer {
   .panel, .subject-layout, .finger-section { padding: 15px; }
   .fingerprint-grid { grid-template-columns: repeat(2, 1fr); }
 }
+.nav button,
+.nav .nav-link {
+  background: transparent;
+  color: #839399;
+  border: 0;
+  border-right: 1px solid var(--line);
+  padding: 11px 16px;
+  font: inherit;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.nav button:first-child,
+.nav .nav-link:first-child {
+  border-left: 1px solid var(--line);
+}
+
+.nav button:hover,
+.nav .nav-link:hover {
+  color: var(--cyan);
+  background: rgba(93,228,255,.035);
+}
+
+.nav button.active,
+.nav .nav-link.active {
+  color: var(--cyan);
+  background: rgba(93,228,255,.045);
+}
