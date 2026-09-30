@@ -158,6 +158,30 @@ async function analyze() {
     return;
   }
 
+  // Do not start analysis without a fingerprint image
+  if (!selectedFile) {
+    consoleEl.innerHTML = `
+      <div class="console-line bad">
+        [ERROR] BIOMETRIC ANALYSIS HALTED
+      </div>
+      <div class="console-line muted">
+        NO LATENT PRINT IMAGE DETECTED
+      </div>
+      <div class="console-line muted">
+        EVIDENCE IMAGE REQUIRED FOR ANALYSIS
+      </div>
+      <div class="console-line bad">
+        [!] ACTION REQUIRED: UPLOAD FINGERPRINT EVIDENCE
+      </div>
+    `;
+
+    progressText.textContent = "INPUT REQUIRED";
+    progressPercent.textContent = "0%";
+    progressBar.style.width = "0%";
+
+    return;
+  }
+
   analyzeBtn.disabled = true;
   resultSection.classList.add("hidden");
   matchResult.innerHTML = "";
@@ -299,25 +323,7 @@ function renderNoMatch(id) {
   resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-analyzeBtn.addEventListener("click", () => {
-
-  // Do not start analysis if no fingerprint image was uploaded
-  if (!fingerprintFile.files.length) {
-    console.log("No fingerprint image uploaded.");
-
-    // Show a message in the analysis console
-    consoleEl.innerHTML = `
-      <div class="console-line">
-        <span class="error">ERROR:</span>
-        FINGERPRINT IMAGE REQUIRED
-      </div>
-      <div class="console-line muted">
-        Upload a latent print image before initiating biometric analysis.
-      </div>
-    `;
-
-    return;
-  }
+analyzeBtn.addEventListener("click", analyze);
 
 evidenceId.addEventListener("keydown", e => {
   if (e.key === "Enter") analyze();
