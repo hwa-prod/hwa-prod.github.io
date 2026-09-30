@@ -299,7 +299,26 @@ function renderNoMatch(id) {
   resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-analyzeBtn.addEventListener("click", analyze);
+analyzeBtn.addEventListener("click", () => {
+
+  // Do not start analysis if no fingerprint image was uploaded
+  if (!fingerprintFile.files.length) {
+    console.log("No fingerprint image uploaded.");
+
+    // Show a message in the analysis console
+    consoleEl.innerHTML = `
+      <div class="console-line">
+        <span class="error">ERROR:</span>
+        FINGERPRINT IMAGE REQUIRED
+      </div>
+      <div class="console-line muted">
+        Upload a latent print image before initiating biometric analysis.
+      </div>
+    `;
+
+    return;
+  }
+
 evidenceId.addEventListener("keydown", e => {
   if (e.key === "Enter") analyze();
 });
