@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#05080a">
+  <title>IFIS • Security Control</title>
+
+  <style>
+    :root {
+      --bg: #05080a;
+      --panel: #0b1013;
+      --line: #253239;
+      --text: #d9e3e5;
+      --muted: #73838a;
+      --cyan: #5de4ff;
+      --green: #63e6a7;
+      --red: #ff5d62;
+      --amber: #f4c95d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(30, 60, 68, .18), transparent 40%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Courier New", Courier, monospace;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Scanline effect */
+    .scanlines {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      opacity: .045;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 3px,
+        #fff 4px
+      );
+    }
+
+    /* TOP BAR */
+    .topbar {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--line);
+      background: #070b0d;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .seal {
+      width: 48px;
+      height: 48px;
+      border: 2px solid #aeb9bd;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #e7eef0;
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .agency {
+      font-size: 12px;
+      letter-spacing: 1.7px;
+      color: #d8e0e2;
+    }
+
+    .system-name {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 1px;
+    }
+
+    .status-group {
+      font-size: 10px;
+      color: var(--muted);
+      display: flex;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
+    }
+
+    .divider {
+      color: #36464d;
+    }
+
+    /* NAVIGATION */
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--line);
+      background: #090d10;
+    }
+
+    .nav-link {
+      display: block;
+      background: transparent;
+      color: #839399;
+      border: 0;
+      border-right: 1px solid var(--line);
+      padding: 11px 16px;
+      font: inherit;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+
+    .nav-link:first-child {
+      border-left: 1px solid var(--line);
+    }
+
+    .nav-link:hover {
+      color: var(--cyan);
+      background: rgba(93, 228, 255, .035);
+    }
+
+    /* MAIN */
+    main {
+      width: min(1100px, calc(100% - 32px));
+      margin: 32px auto;
+      flex: 1;
+    }
+
+    .security-panel {
+      border: 1px solid var(--line);
+      background: rgba(8, 13, 16, .96);
+      box-shadow: 0 18px 70px rgba(0,0,0,.35);
+    }
+
+    .panel-head {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-label {
+      color: #89999f;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+    }
+
+    .node {
+      color: #53636a;
+      font-size: 9px;
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    /* ACCESS DENIED */
+    .denied {
+      min-height: 430px;
+      padding: 60px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .warning-icon {
+      width: 74px;
+      height: 74px;
+      border: 1px solid #633238;
+      color: var(--red);
+      display: grid;
+      place-items: center;
+      font-size: 32px;
+      margin-bottom: 25px;
+      box-shadow: 0 0 25px rgba(255, 93, 98, .06);
+    }
+
+    .status {
+      color: var(--red);
+      font-size: 11px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 48px);
+      letter-spacing: 2px;
+      color: #edf3f4;
+    }
+
+    .message {
+      max-width: 650px;
+      margin: 18px auto 0;
+      color: #829096;
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    /* SYSTEM DETAILS */
+    .details {
+      width: min(650px, 100%);
+      margin-top: 30px;
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      text-align: left;
+    }
+
+    .detail {
+      padding: 12px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .detail span {
+      display: block;
+      color: #596970;
+      font-size: 8px;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .detail strong {
+      font-size: 10px;
+      color: #bdc9cc;
+      font-weight: normal;
+    }
+
+    .denied-text {
+      color: var(--red) !important;
+    }
+
+    .clearance {
+      color: var(--amber) !important;
+    }
+
+    /* TERMINAL BUTTONS */
+    .actions {
+      margin-top: 28px;
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .action {
+      display: inline-block;
+      border: 1px solid #26363d;
+      background: transparent;
+      color: #68787e;
+      padding: 9px 13px;
+      font: inherit;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+
+    .action:hover {
+      color: var(--cyan);
+      border-color: var(--cyan);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--line);
+      color: #44545b;
+      padding: 15px 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      font-size: 8px;
+      letter-spacing: .8px;
+    }
+
+    @media (max-width: 600px) {
+      .topbar {
+        padding: 10px 12px;
+      }
+
+      .status-group {
+        display: none;
+      }
+
+      .nav {
+        padding: 0 12px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+      }
+
+      .details {
+        grid-template-columns: 1fr;
+      }
+
+      .denied {
+        padding: 45px 18px;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="scanlines"></div>
+
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="seal">FBI</div>
+
+      <div>
+        <div class="agency">
+          FEDERAL BUREAU OF INVESTIGATION
+        </div>
+
+        <div class="system-name">
+          INTEGRATED FINGERPRINT IDENTIFICATION SYSTEM
+        </div>
+      </div>
+    </div>
+
+    <div class="status-group">
+      <span class="status-dot"></span>
+      <span>SYSTEM ONLINE</span>
+      <span class="divider">|</span>
+      <span>SECURE TERMINAL</span>
+    </div>
+  </header>
+
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+
+    <a href="index.html" class="nav-link">
+      BIOMETRICS
+    </a>
+
+    <a href="#" class="nav-link">
+      CASE FILES
+    </a>
+
+    <a href="#" class="nav-link">
+      IDENTIFICATION
+    </a>
+
+    <a href="#" class="nav-link">
+      SUBJECTS
+    </a>
+
+    <a href="#" class="nav-link">
+      REPORTS
+    </a>
+
+    <a href="#" class="nav-link">
+      ADMIN
+    </a>
+
+  </nav>
+
+
+  <!-- MAIN SECURITY MESSAGE -->
+  <main>
+
+    <section class="security-panel">
+
+      <div class="panel-head">
+        <div class="panel-label">
+          SECURITY CONTROL / ACCESS MANAGEMENT
+        </div>
+
+        <div class="node">
+          IFIS / NODE 07<br>
+          SECURITY PROTOCOL: ACTIVE
+        </div>
+      </div>
+
+
+      <div class="denied">
+
+        <div class="warning-icon">
+          !
+        </div>
+
+        <div class="status">
+          SECURITY EVENT // 403
+        </div>
+
+        <h1>
+          ACCESS DENIED
+        </h1>
+
+        <p class="message">
+          The requested resource is restricted to authorized personnel.
+          Your current terminal does not possess the required clearance
+          level to access this database.
+        </p>
+
+
+        <div class="details">
+
+          <div class="detail">
+            <span>REQUEST STATUS</span>
+            <strong class="denied-text">
+              DENIED
+            </strong>
+          </div>
+
+          <div class="detail">
+            <span>SECURITY CLEARANCE</span>
+            <strong class="clearance">
+              INSUFFICIENT
+            </strong>
+          </div>
+
+          <div class="detail">
+            <span>TERMINAL</span>
+            <strong>
+              IFIS-NODE-07
+            </strong>
+          </div>
+
+          <div class="detail">
+            <span>AUTHORIZATION</span>
+            <strong>
+              REQUIRED
+            </strong>
+          </div>
+
+          <div class="detail">
+            <span>EVENT LOG</span>
+            <strong>
+              SECURITY EVENT RECORDED
+            </strong>
+          </div>
+
+          <div class="detail">
+            <span>TRACE STATUS</span>
+            <strong>
+              TERMINAL IDENTIFIED
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="actions">
+
+          <a href="index.html" class="action">
+            RETURN TO TERMINAL
+          </a>
+
+          <a href="#" class="action">
+            REQUEST CLEARANCE
+          </a>
+
+          <a href="#" class="action">
+            VIEW SECURITY LOG
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <span>
+      FEDERAL BUREAU OF INVESTIGATION • BIOMETRIC SERVICES
+    </span>
+
+    <span>
+      TRAINING / INVESTIGATIVE SIMULATION
+    </span>
+  </footer>
+
+</body>
+</html>
