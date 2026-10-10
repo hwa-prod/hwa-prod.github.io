@@ -1,14 +1,14 @@
 const DATABASE = {
   "EVD-2967": {
-    name: "ELENA VOSS",
-    alias: "VOSS",
-    dob: "14 NOV 1991",
-    nationality: "UNITED STATES",
-    status: "PERSON OF INTEREST",
+    name: "NEPYIVODA Volodymyr",
+    alias: "P1-Sun",
+    dob: "14 MAY 1988",
+    nationality: "UKRAINE",
+    status: "SENIOR PO[midor]LICE LIEUTENANT",
     clearance: "LEVEL 03",
     caseNo: "CF-24-1187",
     confidence: "98.7%",
-    photo: "assets/persons/EVD-1047/person.jpg",
+    photo: "NEPYIVODA_Volodymyr.jpg",
     note: "Latent print recovered from evidence item E-17. Database comparison returned a high-confidence association with the subject record.",
     fingers: {
       "LEFT THUMB": "296__M_Left_thumb_finger_Zcut.BMP",
@@ -24,28 +24,28 @@ const DATABASE = {
     }
   },
 
-  "EVD-2219": {
-    name: "MARCUS HALE",
-    alias: "HALE",
-    dob: "03 FEB 1988",
-    nationality: "UNITED STATES",
-    status: "SUBJECT OF INTEREST",
-    clearance: "LEVEL 02",
+  "EVD-3187": {
+    name: "ANTONIUK Stepan",
+    alias: "SOVOK",
+    dob: "03 FEB 1991",
+    nationality: "EBLARUS",
+    status: "MAMA AMA CRIMINAL",
+    clearance: "NONE",
     caseNo: "CF-25-0421",
     confidence: "97.9%",
-    photo: "assets/persons/EVD-2219/person.jpg",
+    photo: "Stepan_Antoniuk.jpg",
     note: "Latent print comparison generated a database association. Secondary case-file review is required before investigative action.",
     fingers: {
-      "LEFT THUMB": "assets/persons/EVD-2219/left-thumb.jpg",
-      "LEFT INDEX": "assets/persons/EVD-2219/left-index.jpg",
-      "LEFT MIDDLE": "assets/persons/EVD-2219/left-middle.jpg",
-      "LEFT RING": "assets/persons/EVD-2219/left-ring.jpg",
-      "LEFT LITTLE": "assets/persons/EVD-2219/left-little.jpg",
-      "RIGHT THUMB": "assets/persons/EVD-2219/right-thumb.jpg",
-      "RIGHT INDEX": "assets/persons/EVD-2219/right-index.jpg",
-      "RIGHT MIDDLE": "assets/persons/EVD-2219/right-middle.jpg",
-      "RIGHT RING": "assets/persons/EVD-2219/right-ring.jpg",
-      "RIGHT LITTLE": "assets/persons/EVD-2219/right-little.jpg"
+      "LEFT THUMB": "296__M_Right_thumb_finger_Zcut.BMP",
+      "LEFT INDEX": "296__M_Right_index_finger_Zcut.BMP",
+      "LEFT MIDDLE": "296__M_Right_middle_finger_Zcut.BMP",
+      "LEFT RING": "296__M_Right_ring_finger_Zcut.BMP",
+      "LEFT LITTLE": "296__M_Right_little_finger_Zcut.BMP",
+      "RIGHT THUMB": "296__M_Left_thumb_finger_Zcut.BMP",
+      "RIGHT INDEX": "296__M_Left_index_finger_Zcut.BMP",
+      "RIGHT MIDDLE": "296__M_Left_middle_finger_Zcut.BMP",
+      "RIGHT RING": "296__M_Left_ring_finger_Zcut.BMP",
+      "RIGHT LITTLE": "296__M_Left_little_finger_Zcut.BMP"
     }
   },
 
