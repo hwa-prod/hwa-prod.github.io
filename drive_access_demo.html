@@ -87,8 +87,7 @@ loginForm.addEventListener('submit', function (event) {
   const password = document.getElementById('password').value;
   if (username === 'v_nepyivoda38@gmail.com' && password === 'Red John') {
     message.textContent = '';
-    loginView.classList.add('hidden');
-    driveView.classList.remove('hidden');
+    window.location.href = 'https://drive.google.com/drive/folders/1iT6Llz4Ikb04k7yNeQeRvp3X6GvhvWjw?usp=drive_link';
   } else {
     message.textContent = 'Those credentials do not match. Try the sample credentials shown below.';
   }
