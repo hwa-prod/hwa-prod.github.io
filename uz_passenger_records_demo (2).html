@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>УЗ — Пасажирські записи · Демо</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: light-dark(#f2f5f8, #0d1623);
+  --panel: light-dark(#ffffff, #152235);
+  --panel-alt: light-dark(#eaf0f6, #1b2c42);
+  --text: light-dark(#15253a, #f1f5fa);
+  --muted: light-dark(#63758b, #a4b4c7);
+  --line: light-dark(#d7e0e9, #2b3d54);
+  --blue: #0755a6;
+  --blue-deep: #063b78;
+  --yellow: #ffd500;
+  --green: #13844b;
+  --red: #b83c43;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, "Segoe UI", Arial, sans-serif; }
+#app { min-height: 100vh; width: 100%; background: var(--bg); border-radius: 0; }
+.top-stripe { height: 7px; background: linear-gradient(90deg, var(--blue) 0 52%, var(--yellow) 52% 100%); }
+.nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 clamp(20px, 5vw, 74px); border-bottom: 1px solid var(--line); background: var(--panel); }
+.brand { display: flex; align-items: center; gap: 13px; }
+.brand-icon { width: 49px; height: 42px; display: block; }
+.brand-name { font-size: 21px; font-weight: 900; letter-spacing: -.6px; color: var(--blue); }
+.brand-sub { font-size: 9px; font-weight: 800; letter-spacing: 1.5px; margin-top: 3px; color: var(--muted); }
+.nav-right { display: flex; align-items: center; gap: 18px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: 1px; }
+.live { display: inline-flex; align-items: center; gap: 7px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: #28a36a; display: inline-block; }
+.demo-banner { background: #fff6cf; color: #5d4a00; border-bottom: 1px solid #ebd77c; padding: 9px clamp(20px, 5vw, 74px); font-size: 10px; font-weight: 900; letter-spacing: .6px; }
+.hero { background: var(--blue); color: white; padding: 38px clamp(20px, 5vw, 74px) 34px; position: relative; overflow: hidden; }
+.hero:after { content: 'УЗ'; position: absolute; right: 5%; bottom: -75px; font-size: clamp(130px, 23vw, 290px); font-weight: 950; letter-spacing: -.1em; color: white; opacity: .055; pointer-events: none; }
+.eyebrow { font-size: 10px; font-weight: 900; letter-spacing: 2px; color: var(--yellow); margin-bottom: 14px; }
+h1 { max-width: 900px; margin: 0; font-size: clamp(36px, 5.5vw, 68px); line-height: .98; letter-spacing: -.055em; font-weight: 950; }
+.hero p { max-width: 680px; color: #dce9f8; font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+.wrap { max-width: 1480px; margin: auto; padding: 29px clamp(20px, 5vw, 74px) 55px; }
+.section-head { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 17px; }
+.section-head h2, .results-head h2 { margin: 0; font-size: 20px; letter-spacing: -.5px; }
+.section-head p { margin: 7px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.tag { padding: 9px 11px; border: 1px solid var(--line); background: var(--panel); color: var(--muted); font-size: 9px; font-weight: 900; letter-spacing: .8px; white-space: nowrap; }
+.search-card { background: var(--panel); border: 1px solid var(--line); padding: 22px; }
+.fields { display: grid; grid-template-columns: minmax(250px, 1.6fr) minmax(180px, 1fr) minmax(180px, 1fr); gap: 16px; }
+.field label { display: block; color: var(--muted); font-size: 9px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+input, select { width: 100%; min-height: 45px; border: 1px solid var(--line); background: var(--bg); color: var(--text); border-radius: 3px; padding: 0 12px; font: inherit; font-size: 13px; outline: none; }
+input:focus, select:focus { border-color: var(--blue); box-shadow: 0 0 0 2px #0755a622; }
+.actions { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-top: 19px; }
+.button-row { display: flex; gap: 9px; flex-wrap: wrap; }
+button { cursor: pointer; border: 0; border-radius: 3px; padding: 13px 18px; font-size: 10px; font-weight: 900; letter-spacing: .8px; }
+.primary { background: var(--yellow); color: #17283c; }
+.secondary { background: var(--panel-alt); border: 1px solid var(--line); color: var(--text); }
+.hint { font-size: 10px; line-height: 1.55; color: var(--muted); }
+.suggestions { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 13px; align-items: center; }
+.suggestions span { font-size: 9px; color: var(--muted); margin-right: 3px; }
+.suggestion { background: var(--panel-alt); border: 1px solid var(--line); color: var(--text); padding: 7px 9px; font-size: 10px; font-weight: 700; letter-spacing: 0; }
+.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 21px 0 28px; }
+.metric { background: var(--panel); border: 1px solid var(--line); padding: 16px 18px; }
+.metric span { display: block; color: var(--muted); font-size: 9px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+.metric strong { display: block; margin-top: 7px; font-size: 28px; letter-spacing: -1px; }
+.results-head { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 13px; }
+.result-count { color: var(--muted); font-size: 11px; }
+.person-panel { display: grid; grid-template-columns: 1.2fr 2fr; gap: 14px; margin-bottom: 15px; }
+.person-card, .route-summary, .table-panel { background: var(--panel); border: 1px solid var(--line); min-width: 0; }
+.person-card { padding: 19px; }
+.person-label { font-size: 9px; color: var(--muted); letter-spacing: 1.3px; font-weight: 900; }
+.person-name { font-size: 25px; letter-spacing: -.8px; font-weight: 900; margin: 8px 0 6px; }
+.person-note { font-size: 11px; color: var(--muted); line-height: 1.6; }
+.person-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; border-top: 1px solid var(--line); padding-top: 15px; margin-top: 16px; }
+.person-stats span { display: block; color: var(--muted); font-size: 9px; }
+.person-stats strong { display: block; font-size: 17px; margin-top: 5px; }
+.route-summary { padding: 18px 20px; }
+.route-top { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+.route-top h3 { margin: 0; font-size: 14px; }
+.route-top p { margin: 5px 0 0; color: var(--muted); font-size: 10px; }
+.route-line { display: grid; grid-template-columns: 1fr 24px 1fr; align-items: center; gap: 10px; margin-top: 20px; }
+.station strong { display: block; font-size: 17px; }
+.station span { display: block; color: var(--muted); font-size: 10px; margin-top: 5px; }
+.track { height: 2px; background: var(--line); position: relative; }
+.track:before, .track:after { content: ''; position: absolute; top: -4px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--blue); background: var(--panel); }
+.track:before { left: 0; } .track:after { right: 0; }
+.table-panel { overflow: hidden; }
+.table-title { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.table-title strong { font-size: 13px; }
+.table-title span { font-size: 10px; color: var(--muted); }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; min-width: 1060px; border-collapse: collapse; text-align: left; }
+th { background: var(--panel-alt); padding: 13px 12px; color: var(--muted); font-size: 9px; letter-spacing: .7px; text-transform: uppercase; white-space: nowrap; }
+td { border-top: 1px solid var(--line); padding: 14px 12px; font-size: 11px; white-space: nowrap; }
+td strong { font-size: 11px; }
+.mono { font-family: "Cascadia Code", Consolas, monospace; }
+.pill { display: inline-block; padding: 6px 8px; border-radius: 3px; background: var(--panel-alt); border: 1px solid var(--line); font-size: 8px; font-weight: 900; letter-spacing: .4px; }
+.pill.yes { color: var(--green); background: light-dark(#e6f6ed, #153b2b); border-color: light-dark(#b5e1c8, #276444); }
+.pill.no { color: var(--red); background: light-dark(#fff0f0, #422329); border-color: light-dark(#f0c3c5, #754047); }
+.pill.neutral { color: var(--muted); }
+.empty { padding: 45px 20px; text-align: center; color: var(--muted); font-size: 12px; }
+.empty strong { display: block; color: var(--text); font-size: 17px; margin-bottom: 8px; }
+.footer { display: flex; justify-content: space-between; gap: 18px; border-top: 1px solid var(--line); padding: 20px clamp(20px, 5vw, 74px); color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .7px; }
+@media (max-width: 950px) { .fields { grid-template-columns: 1fr 1fr; } .person-panel { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .nav { min-height: 67px; } .brand-name { font-size: 18px; } .nav-right .nav-extra { display: none; } .hero { padding-top: 32px; } .fields, .metrics { grid-template-columns: 1fr 1fr; } .fields .field:first-child { grid-column: 1 / -1; } .actions, .section-head, .results-head, .footer { align-items: flex-start; flex-direction: column; } .demo-banner { line-height: 1.5; } .metric { padding: 13px; } .metric strong { font-size: 23px; } .tag { white-space: normal; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="top-stripe"></div>
+  <header class="nav">
+    <div class="brand">
+      <svg class="brand-icon" viewBox="0 0 100 80" aria-label="Стилізований знак УЗ"><path fill="#0755a6" d="M12 9h23v34c0 8 5 13 15 13s15-5 15-13V9h23v35c0 22-15 33-38 33S12 66 12 44z"/><path fill="#ffd500" d="M5 2h90v7H5zM5 70h90v7H5z"/></svg>
+      <div><div class="brand-name">УКРЗАЛІЗНИЦЯ</div><div class="brand-sub">ПАСАЖИРСЬКІ ЗАПИСИ · DEMO</div></div>
+    </div>
+    <div class="nav-right"><span class="live"><i class="dot"></i> DEMO-СИСТЕМА АКТИВНА</span><span class="nav-extra">ВНУТРІШНІЙ ІНТЕРФЕЙС / 03</span></div>
+  </header>
+  <div class="demo-banner">⚠ НАВЧАЛЬНИЙ МАКЕТ · УСІ ІМЕНА, КВИТКИ ТА СТАТУСИ ВИГАДАНІ · НЕ ПІДКЛЮЧЕНО ДО СИСТЕМ УЗ</div>
+  <section class="hero"><div class="eyebrow">ПАСАЖИРСЬКИЙ ОБЛІК / ПОШУК КВИТКІВ</div><h1>ЗНАЙТИ ЗАПИС.<br>ПЕРЕВІРИТИ ПОЇЗДКУ.</h1><p>Демонстраційний пошук квиткових записів за ім’ям пасажира. Переглядайте маршрут, дату, вагон, місце, оплату та статус посадки в одному інтерфейсі.</p></section>
+  <main class="wrap">
+    <div class="section-head"><div><h2>Пошук пасажира</h2><p>Введіть ім’я та прізвище вручну. За бажанням можна додати дату поїздки.</p></div><div class="tag">ВИГАДАНІ ДАНІ · ЛОКАЛЬНИЙ ПОШУК</div></div>
+    <section class="search-card"><form id="searchForm"><div class="fields">
+      <div class="field"><label for="name">Ім’я та прізвище пасажира</label><input id="name" autocomplete="off" placeholder="Введіть ім’я та прізвище" required></div>
+      <div class="field"><label for="date">Дата відправлення</label><input id="date" type="date"></div>
+      <div class="field"><label for="boarding">Статус посадки</label><select id="boarding"><option value="">Усі статуси</option><option value="Так">Посадка підтверджена</option><option value="Ні">Не сідав / не підтверджено</option><option value="Очікується">Очікується</option></select></div>
+    </div><div class="actions"><div class="button-row"><button class="primary" type="submit">ЗНАЙТИ КВИТКИ ↗</button><button class="secondary" id="resetBtn" type="button">СКИНУТИ</button></div><div class="hint">Пошук виконується лише серед вбудованих вигаданих записів.<br>Жодних реальних персональних даних не використовується.</div></div>
+    
+    </form></section>
+    <section class="metrics" aria-label="Підсумок пошуку"><div class="metric"><span>Знайдено квитків</span><strong id="metricTickets">—</strong></div><div class="metric"><span>Посадка підтверджена</span><strong id="metricBoarded">—</strong></div><div class="metric"><span>Не підтверджено</span><strong id="metricNotBoarded">—</strong></div><div class="metric"><span>Загальна вартість</span><strong id="metricValue">—</strong></div></section>
+    <div class="results-head"><h2>Квиткові записи</h2><div class="result-count" id="resultCount">Виберіть демонстраційного пасажира</div></div>
+    <section class="person-panel" id="personPanel" hidden>
+      <article class="person-card"><div class="person-label">ЗАПИС ПАСАЖИРА · DEMO</div><div class="person-name" id="personName">—</div><div class="person-note">Дані профілю в цьому макеті створені виключно для демонстрації інтерфейсу. Це не реальна картка пасажира.</div><div class="person-stats"><div><span>Квитків</span><strong id="personTickets">0</strong></div><div><span>Посадка</span><strong id="personBoarded">0</strong></div><div><span>Повернено</span><strong id="personRefunded">0</strong></div></div></article>
+      <article class="route-summary"><div class="route-top"><div><h3 id="routeTitle">Останній знайдений маршрут</h3><p id="routeMeta">—</p></div><span class="pill neutral">ДЕМО ЗАПИС</span></div><div class="route-line"><div class="station"><strong id="routeFrom">—</strong><span id="routeDepart">—</span></div><div class="track"></div><div class="station" style="text-align:right"><strong id="routeTo">—</strong><span id="routeArrive">—</span></div></div></article>
+    </section>
+    <section class="table-panel"><div class="table-title"><strong>Історія квитків</strong><span>Маршрут · місце · статус поїздки</span></div><div class="table-scroll"><table><thead><tr><th>Номер квитка</th><th>Дата</th><th>Поїзд</th><th>Маршрут</th><th>Вагон / місце</th><th>Клас</th><th>Оплата</th><th>Посадка</th><th>Вартість</th></tr></thead><tbody id="ticketRows"></tbody></table></div><div class="empty" id="emptyState"><strong>ПОКИ НЕМАЄ РЕЗУЛЬТАТІВ</strong>Введіть ім’я та прізвище й натисніть «Знайти квитки».</div></section>
+  </main>
+  <footer class="footer"><span>УКРЗАЛІЗНИЦЯ · ДЕМО ІНТЕРФЕЙСУ</span><span>ВИГАДАНІ ЗАПИСИ · НЕ Є ОФІЦІЙНИМ СЕРВІСОМ АТ «УКРЗАЛІЗНИЦЯ»</span></footer>
+</div>
+<script>
+const records = [
+ // Усі записи нижче — вигадані демонстраційні дані, а не реальна історія подорожей.
+ {name:'Степан Антонюк',ticket:'DEMO-7810426',date:'2026-07-10',train:'№ DEMO-079',from:'Запоріжжя-1',to:'Львів',depart:'18:42',arrive:'10:15',car:'06',seat:'24',className:'Купе',payment:'Сплачено',boarding:'Так',price:865.00},
+ {name:'Степан Антонюк',ticket:'DEMO-7811010',date:'2026-10-10',train:'№ DEMO-080',from:'Львів',to:'Запоріжжя-1',depart:'16:20',arrive:'08:05',car:'04',seat:'17',className:'Купе',payment:'Сплачено',boarding:'Очікується',price:892.00},
+ {name:'Степан Антонюк',ticket:'DEMO-7800612',date:'2026-06-12',train:'№ DEMO-041',from:'Запоріжжя-1',to:'Київ-Пас.',depart:'20:05',arrive:'06:40',car:'08',seat:'31',className:'Плацкарт',payment:'Сплачено',boarding:'Так',price:498.00},
+ {name:'Степан Антонюк',ticket:'DEMO-7790421',date:'2026-04-21',train:'№ DEMO-086',from:'Львів',to:'Київ-Пас.',depart:'21:15',arrive:'06:30',car:'03',seat:'12',className:'Купе',payment:'Сплачено',boarding:'Так',price:735.00},
+ {name:'Степан Антонюк',ticket:'DEMO-7780214',date:'2026-02-14',train:'№ DEMO-006',from:'Запоріжжя-1',to:'Дніпро-Головний',depart:'07:30',arrive:'10:05',car:'02',seat:'08',className:'Сидячий',payment:'Повернено',boarding:'Ні',price:0},
+ {name:'Марія Коваль',ticket:'DEMO-1048271',date:'2026-09-18',train:'№ 079О',from:'Київ-Пас.',to:'Львів',depart:'23:10',arrive:'07:40',car:'05',seat:'18',className:'Купе',payment:'Сплачено',boarding:'Так',price:684.50},
+ {name:'Марія Коваль',ticket:'DEMO-1049918',date:'2026-08-29',train:'№ 041П',from:'Львів',to:'Київ-Пас.',depart:'22:15',arrive:'06:20',car:'03',seat:'12',className:'Купе',payment:'Сплачено',boarding:'Так',price:712.00},
+ {name:'Марія Коваль',ticket:'DEMO-1053026',date:'2026-10-22',train:'№ 749Д',from:'Київ-Пас.',to:'Харків-Пас.',depart:'06:15',arrive:'11:02',car:'02',seat:'07',className:'Інтерсіті+',payment:'Сплачено',boarding:'Очікується',price:921.00},
+ {name:'Олександр Мельник',ticket:'DEMO-2084401',date:'2026-09-20',train:'№ 038К',from:'Одеса-Головна',to:'Київ-Пас.',depart:'18:30',arrive:'06:12',car:'08',seat:'31',className:'Плацкарт',payment:'Сплачено',boarding:'Ні',price:398.00},
+ {name:'Олександр Мельник',ticket:'DEMO-2089107',date:'2026-07-14',train:'№ 105К',from:'Київ-Пас.',to:'Одеса-Головна',depart:'21:05',arrive:'07:55',car:'04',seat:'22',className:'Купе',payment:'Повернено',boarding:'Ні',price:0},
+ {name:'Ірина Шевченко',ticket:'DEMO-3306720',date:'2026-09-15',train:'№ 091Л',from:'Київ-Пас.',to:'Чернівці',depart:'18:40',arrive:'09:15',car:'06',seat:'14',className:'Купе',payment:'Сплачено',boarding:'Так',price:756.00},
+ {name:'Ірина Шевченко',ticket:'DEMO-3308852',date:'2026-08-02',train:'№ 086Л',from:'Чернівці',to:'Львів',depart:'22:20',arrive:'05:45',car:'09',seat:'44',className:'Плацкарт',payment:'Сплачено',boarding:'Так',price:326.00},
+ {name:'Андрій Бондар',ticket:'DEMO-4481003',date:'2026-09-11',train:'№ 015О',from:'Харків-Пас.',to:'Яремче',depart:'18:55',arrive:'10:30',car:'07',seat:'09',className:'Купе',payment:'Сплачено',boarding:'Так',price:842.00},
+ {name:'Андрій Бондар',ticket:'DEMO-4485508',date:'2026-09-27',train:'№ 724К',from:'Київ-Пас.',to:'Харків-Пас.',depart:'14:07',arrive:'18:45',car:'01',seat:'16',className:'Інтерсіті+',payment:'Сплачено',boarding:'Ні',price:634.00},
+ {name:'Софія Ткаченко',ticket:'DEMO-5529304',date:'2026-09-06',train:'№ 006П',from:'Запоріжжя-1',to:'Київ-Пас.',depart:'19:12',arrive:'06:05',car:'10',seat:'27',className:'Плацкарт',payment:'Сплачено',boarding:'Так',price:442.00},
+ {name:'Дмитро Савчук',ticket:'DEMO-6672105',date:'2026-09-21',train:'№ 749Д',from:'Київ-Пас.',to:'Харків-Пас.',depart:'06:15',arrive:'11:02',car:'03',seat:'05',className:'Інтерсіті+',payment:'Сплачено',boarding:'Так',price:921.00},
+ {name:'Дмитро Савчук',ticket:'DEMO-6672990',date:'2026-09-23',train:'№ 102К',from:'Харків-Пас.',to:'Київ-Пас.',depart:'19:20',arrive:'00:06',car:'04',seat:'21',className:'Купе',payment:'Сплачено',boarding:'Ні',price:615.00}
+];
+const $ = id => document.getElementById(id);
+let filtered = [];
+const money = value => new Intl.NumberFormat('uk-UA',{style:'currency',currency:'UAH',maximumFractionDigits:2}).format(value);
+function boardingPill(status){const cls=status==='Так'?'yes':status==='Ні'?'no':'neutral';const label=status==='Так'?'ТАК · ПІДТВЕРДЖЕНО':status==='Ні'?'НІ · НЕ ПІДТВЕРДЖЕНО':'ОЧІКУЄТЬСЯ';return `<span class="pill ${cls}">${label}</span>`;}
+function render(){
+ const rows=$('ticketRows'); rows.innerHTML='';
+ filtered.forEach(r=>{const tr=document.createElement('tr');tr.innerHTML=`<td><strong class="mono">${r.ticket}</strong></td><td>${r.date}</td><td><strong>${r.train}</strong></td><td>${r.from}<br><span style="color:var(--muted);font-size:10px">→ ${r.to}</span></td><td>${r.car} / ${r.seat}</td><td>${r.className}</td><td><span class="pill ${r.payment==='Сплачено'?'yes':'neutral'}">${r.payment.toUpperCase()}</span></td><td>${boardingPill(r.boarding)}</td><td><strong>${money(r.price)}</strong></td>`;rows.appendChild(tr);});
+ $('emptyState').hidden=filtered.length>0;
+ if(!filtered.length){$('emptyState').innerHTML='<strong>ЗАПИСІВ НЕ ЗНАЙДЕНО</strong>Перевірте написання імені або змініть фільтри.';$('resultCount').textContent='0 записів';$('personPanel').hidden=true;$('metricTickets').textContent='0';$('metricBoarded').textContent='0';$('metricNotBoarded').textContent='0';$('metricValue').textContent=money(0);return;}
+ $('emptyState').innerHTML='<strong>ПОКИ НЕМАЄ РЕЗУЛЬТАТІВ</strong>Введіть ім’я та прізвище й натисніть «Знайти квитки».';
+ const people=[...new Set(filtered.map(r=>r.name))];$('personPanel').hidden=false;$('personName').textContent=people.length===1?people[0]:'Кілька пасажирів';$('personTickets').textContent=filtered.length;$('personBoarded').textContent=filtered.filter(r=>r.boarding==='Так').length;$('personRefunded').textContent=filtered.filter(r=>r.payment==='Повернено').length;
+ const latest=[...filtered].sort((a,b)=>b.date.localeCompare(a.date))[0];$('routeTitle').textContent=`${latest.train} · ${latest.from} — ${latest.to}`;$('routeMeta').textContent=`${latest.date} · вагон ${latest.car}, місце ${latest.seat} · ${latest.className}`;$('routeFrom').textContent=latest.from;$('routeDepart').textContent=`Відправлення ${latest.depart}`;$('routeTo').textContent=latest.to;$('routeArrive').textContent=`Прибуття ${latest.arrive}`;
+ $('metricTickets').textContent=filtered.length;$('metricBoarded').textContent=filtered.filter(r=>r.boarding==='Так').length;$('metricNotBoarded').textContent=filtered.filter(r=>r.boarding==='Ні').length;$('metricValue').textContent=money(filtered.reduce((sum,r)=>sum+r.price,0));$('resultCount').textContent=`Знайдено ${filtered.length} квитк. записів · ${people.length} пасажир(ів)`;
+}
+$('searchForm').addEventListener('submit',e=>{e.preventDefault();const name=$('name').value.trim().toLocaleLowerCase('uk-UA');const date=$('date').value;const boarding=$('boarding').value;filtered=records.filter(r=>r.name.toLocaleLowerCase('uk-UA')===name&&(!date||r.date===date)&&(!boarding||r.boarding===boarding));render();});
+$('resetBtn').addEventListener('click',()=>{$('searchForm').reset();filtered=[];render();});
+
+</script>
+</body>
+</html>
