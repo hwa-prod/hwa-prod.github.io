@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Drive Access Demo</title>
+<title>Drive Access </title>
 <style>
 :root { color-scheme: light dark; --bg: light-dark(#f7f9fc,#15171b); --surface: light-dark(#fff,#202329); --text: light-dark(#202124,#f1f3f4); --muted: light-dark(#5f6368,#b8bdc5); --line: light-dark(#dadce0,#454a53); --accent: light-dark(#3569d4,#8ab4f8); --accentText: light-dark(#fff,#15243b); --soft: light-dark(#eaf1ff,#27364d); }
 * { box-sizing: border-box; }
@@ -49,17 +49,17 @@ button:hover { filter: brightness(1.04); }
     <section id="loginView" class="login-card" aria-labelledby="loginTitle">
       <div class="logo-large" aria-hidden="true">▤</div>
       <h1 id="loginTitle">Sign in to your drive</h1>
-      <p class="subtitle">Use the demo credentials to continue to your files.</p>
+      <p class="subtitle">Use the credentials to continue to your files.</p>
       <form id="loginForm">
         <label for="email">Email or username</label>
-        <input id="email" name="email" type="text" autocomplete="off" placeholder="name@example.com" required>
+        <input id="email" name="email" type="text" autocomplete="off" placeholder="name@gmail.com" required>
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" autocomplete="off" placeholder="Enter demo password" required>
+        <input id="password" name="password" type="password" autocomplete="off" placeholder="Enter password" required>
         <div id="message" class="message" role="status" aria-live="polite"></div>
         <button class="submit" type="submit">Continue</button>
       </form>
-      <div class="demo-hint"><strong>Demo sign-in</strong><br>Username: <code>demo@sample.test</code><br>Password: <code>demo123</code></div>
-      <p class="footnote">This is a fictional interface for demonstration. Do not enter a real password.</p>
+      <div class="demo-hint"><strong></strong><br>: <code></code><br>: <code></code></div>
+      <p class="footnote"></p>
     </section>
     <section id="driveView" class="drive-page hidden" aria-labelledby="driveTitle">
       <div class="drive-head"><div><h1 id="driveTitle">My Drive</h1><div class="subtitle" style="margin:0">Welcome to your demo workspace.</div></div><button id="signOut" type="button">Sign out</button></div>
@@ -85,12 +85,12 @@ loginForm.addEventListener('submit', function (event) {
   event.preventDefault();
   const username = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
-  if (username === 'demo@sample.test' && password === 'demo123') {
+  if (username === 'v_nepyivoda38@gmail.com' && password === 'Red John') {
     message.textContent = '';
     loginView.classList.add('hidden');
     driveView.classList.remove('hidden');
   } else {
-    message.textContent = 'Those demo credentials do not match. Try the sample credentials shown below.';
+    message.textContent = 'Those credentials do not match. Try the sample credentials shown below.';
   }
 });
 document.getElementById('signOut').addEventListener('click', function () {
