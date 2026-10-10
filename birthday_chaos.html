@@ -70,10 +70,10 @@ function freeze(){frozenAll=!frozenAll;document.querySelectorAll('.floaty').forE
 async function clearWall(){if(!memories.length)return; if(!confirm('Delete all saved photos/videos from this browser? This cannot be undone.'))return;for(const m of memories){await removeRecord(m.id).catch(()=>{});if(urls.has(m.id)){URL.revokeObjectURL(urls.get(m.id));urls.delete(m.id)}}memories=[];document.querySelectorAll('.floaty').forEach(e=>e.remove());updateStats();say('WALL CLEARED. THE MEMORIES ARE STILL IN YOUR HEART 🥹')}
 function confetti(){const c=$('#confetti');for(let i=0;i<75;i++){const p=document.createElement('i');p.style.left=random(0,100)+'%';p.style.background=palette[i%palette.length];p.style.setProperty('--drift',random(-180,180)+'px');p.style.animationDuration=random(5,14)+'s';p.style.animationDelay=random(-14,0)+'s';p.style.transform=`rotate(${random(0,360)}deg)`;c.append(p)}}
 const songLibrary={
-  happybday1:{name:'Happy Birthday 1',file:'happybday1.mp3'},
-  happybday2:{name:'Happy Birthday 2',file:'happybday2.mp3'},
-  happybday:{name:'HappyBday',file:'HappyBday.mp3'},
-  viktoriia:{name:'Viktoriia',file:'Viktoriia.mp3'}
+  happybday1:{name:'Весело',file:'happybday1.mp3'},
+  happybday2:{name:'Персик',file:'happybday2.mp3'},
+  happybday:{name:'База',file:'HappyBday.mp3'},
+  viktoriia:{name:'Сало',file:'Viktoriia.mp3'}
  };
  let currentAudio=null;
  function stopMusic(){
