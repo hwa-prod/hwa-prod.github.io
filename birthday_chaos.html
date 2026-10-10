@@ -21,7 +21,7 @@ header{position:relative;z-index:3;text-align:center;padding:32px 18px 18px}.eye
 <header>
 <div class="eyebrow">⚠️ TOTALLY NORMAL BIRTHDAY WEBSITE ⚠️</div>
 <h1 class="headline"><span>HAPPY</span><br><em>BIRTHDAY!!!</em> 🎂</h1>
-<p class="sub">З ДНЕМ НАРОДЖЕННЯ НАЙПРЕКРАСНІШУ З НАЙПРЕКРАСНІШИХ! ЧМОК В ПУПОК!.</p>
+<p class="sub">З ДНЕМ НАРОДЖЕННЯ НАЙПРЕКРАСНІШУ З НАЙПРЕКРАСНІШИХ! ЧМОК В ПУПОК!</p>
 </header>
 <div class="marquee"><div>🎉 ВЖЕ ЧВЕРТЬ СТОРІЧЧЯ!!! 💥 РОКИ ЙДУТЬ ЧАСИКИ ТІКАЮТЬ 🎂 КОЛИ ЗАМІЖ? КОЛИ ДІТКИ? 🥳 &nbsp;&nbsp; 🎉 МОРГНУЛА І ВЖЕ 40!!! 💥 НОУ ПРЕЖЕР АЛЕ ВЖЕ НУ ПОРА 🎂 ЧУЮ ХРУСТ СУГЛОБІВ ЧЕРЕЗ ПІВ СВІТУ 🥳 &nbsp;&nbsp;</div></div>
 <section class="controls" aria-label="Birthday media controls">
@@ -37,8 +37,8 @@ header{position:relative;z-index:3;text-align:center;padding:32px 18px 18px}.eye
 <div class="stats"><span id="count">0 memories</span><div class="meter"><span id="meter"></span></div><span id="storage">Saved in this browser</span></div>
 </section>
 <main class="stage" id="stage">
-<div class="hint">👆 TAP ANY PHOTO TO MAKE IT STOP SPINNING AND LOOK CLOSER 👆</div>
-<div class="empty" id="empty"><strong>THE CHAOS HAS NOT ARRIVED YET.</strong><p>Add your photos and videos above. They will teleport offscreen, balloon up, shrink, spin like lunatics, fade in and out, and morph into weird shapes. Tap one to freeze it; tap again to open it big.</p><p>🎈 A VERY SERIOUS MEMORY STORAGE FACILITY 🎈</p></div>
+<div class="hint">👆 ТИЦНІ НА ФОТО ЩОБ НАБЛИЗИТИ І РОЗДИВИТИСЯ 👆</div>
+<div class="empty" id="empty"><strong>НІЧО НЕМАЄ ЩЕ, ФОТО ЗАВАНТАЖ.</strong><p>Add your photos and videos above. They will teleport offscreen, balloon up, shrink, spin like lunatics, fade in and out, and morph into weird shapes. Tap one to freeze it; tap again to open it big.</p><p>🎈 A VERY SERIOUS MEMORY STORAGE FACILITY 🎈</p></div>
 <div class="sticker" style="left:4%;top:18%">🎈</div><div class="sticker" style="right:5%;top:25%;animation-direction:reverse">💖</div><div class="sticker" style="left:8%;bottom:9%;animation-duration:12s">🎁</div><div class="sticker" style="right:10%;bottom:14%;animation-duration:6s">🍰</div>
 </main>
 <div class="footer">MADE WITH 9000% AFFECTION AND QUESTIONABLE AMOUNTS OF CONFETTI ✨</div>
@@ -79,7 +79,7 @@ const songLibrary={
  function stopMusic(){
   soundOn=false;
   if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;currentAudio=null}
-  $('#music').textContent='ЗАВОДИ ШАРИАНКУ ▶️';
+  $('#music').textContent='ВРУБАЙ ШАРИАНКУ ▶️';
  }
  function playSong(){
   if(soundOn){stopMusic();say('ПОЗАКРИВАЛИСЬ ПИЗДАКИ.');return}
@@ -93,7 +93,7 @@ const songLibrary={
    stopMusic();
    say('Could not load '+song.file+'. Make sure the MP3 is beside this HTML file.');
   },{once:true});
-  currentAudio.play().then(()=>say('NOW PLAYING: '+song.name.toUpperCase()+' 🎂')).catch(()=>{
+  currentAudio.play().then(()=>say('ДАВАЙ ПА НОВАЙ МІША, ГРАЄМО: '+song.name.toUpperCase()+' 🎂')).catch(()=>{
    stopMusic();
    say('Could not play music. Check that the MP3 file is beside this HTML file.');
   });
