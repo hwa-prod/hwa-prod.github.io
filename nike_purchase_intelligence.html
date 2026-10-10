@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIKE — Purchase Intelligence</title>
+<style>
+:root { color-scheme: light dark; --bg: light-dark(#f4f4f4,#111); --panel: light-dark(#fff,#1b1b1b); --panel2: light-dark(#ededed,#242424); --text: light-dark(#111,#f5f5f5); --muted: light-dark(#666,#aaa); --line: light-dark(#d8d8d8,#393939); --accent:#d7ff00; --ink:#111; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font-family:Arial,Helvetica,sans-serif; }
+#app { min-height:100vh; width:100%; background:var(--bg); border-radius:0; }
+.topline { height:5px; background:var(--accent); }
+.nav { height:76px; padding:0 clamp(20px,5vw,76px); display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); gap:24px; }
+.brand { display:flex; align-items:center; gap:16px; font-weight:950; letter-spacing:-1.6px; font-size:31px; }
+.brand-mark { width:56px; height:30px; display:block; }
+.brand small { display:block; font-size:9px; letter-spacing:2.4px; font-weight:700; margin-top:3px; }
+.nav-right { display:flex; align-items:center; gap:18px; color:var(--muted); font-size:11px; font-weight:800; letter-spacing:1.2px; }
+.status-dot { display:inline-block; width:7px; height:7px; background:#9ed000; border-radius:50%; margin-right:7px; }
+.hero { padding:42px clamp(20px,5vw,76px) 35px; background:var(--accent); color:#111; position:relative; overflow:hidden; }
+.hero:after { content:'NIKE'; position:absolute; right:2%; bottom:-46px; font-size:clamp(100px,20vw,250px); font-weight:1000; letter-spacing:-.1em; opacity:.055; pointer-events:none; }
+.eyebrow { font-size:10px; font-weight:900; letter-spacing:2.3px; margin-bottom:15px; }
+h1 { font-size:clamp(38px,6vw,76px); line-height:.9; letter-spacing:-.065em; margin:0; font-weight:950; max-width:850px; }
+.hero p { font-size:14px; line-height:1.6; max-width:620px; margin:22px 0 0; color:#333; }
+.wrap { max-width:1440px; padding:30px clamp(20px,5vw,76px) 60px; margin:auto; }
+.section-head { display:flex; justify-content:space-between; align-items:end; gap:20px; margin-bottom:18px; }
+.section-head h2 { font-size:21px; letter-spacing:-.7px; margin:0; font-weight:900; }
+.section-head p { color:var(--muted); font-size:11px; margin:7px 0 0; }
+.demo-tag { font-size:9px; font-weight:900; letter-spacing:1.2px; padding:9px 11px; background:var(--panel2); border:1px solid var(--line); white-space:nowrap; }
+.search-card { background:var(--panel); border:1px solid var(--line); padding:22px; }
+.fields { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:17px; }
+.field label { display:block; text-transform:uppercase; letter-spacing:1.15px; font-size:9px; font-weight:900; color:var(--muted); margin-bottom:9px; }
+input,select { width:100%; min-height:45px; border:1px solid var(--line); border-radius:0; background:var(--bg); color:var(--text); padding:0 12px; font:inherit; font-size:13px; outline:none; }
+input:focus,select:focus { border-color:light-dark(#111,#d7ff00); box-shadow:0 0 0 1px light-dark(#111,#d7ff00); }
+.actions { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:22px; }
+.btns { display:flex; gap:9px; }
+button { border:0; border-radius:0; padding:14px 20px; font-weight:900; font-size:10px; letter-spacing:1.2px; cursor:pointer; }
+.primary { background:var(--accent); color:#111; }
+.secondary { background:var(--panel2); color:var(--text); border:1px solid var(--line); }
+.hint { font-size:10px; color:var(--muted); line-height:1.5; }
+.metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:22px 0 30px; }
+.metric { padding:17px 18px; border:1px solid var(--line); background:var(--panel); }
+.metric span { display:block; font-size:9px; color:var(--muted); letter-spacing:1.2px; font-weight:900; text-transform:uppercase; }
+.metric strong { display:block; font-size:29px; letter-spacing:-1.3px; margin-top:7px; }
+.results-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; gap:12px; }
+.results-head h2 { margin:0; font-size:21px; letter-spacing:-.7px; }
+.result-count { color:var(--muted); font-size:11px; }
+.result-layout { display:grid; grid-template-columns:minmax(250px, .85fr) minmax(0,2fr); gap:15px; align-items:start; }
+.product-card { background:var(--panel); border:1px solid var(--line); overflow:hidden; }
+.product-art { height:220px; display:grid; place-items:center; background:var(--panel2); position:relative; overflow:hidden; }
+.product-art:before { content:''; position:absolute; width:220px; height:220px; border:1px solid var(--line); border-radius:50%; }
+.product-art svg { width:90%; max-width:390px; position:relative; filter:drop-shadow(0 16px 10px #0002); }
+.product-meta { padding:19px; }
+.kicker { font-size:9px; letter-spacing:1.5px; font-weight:900; color:var(--muted); }
+.product-meta h3 { font-size:23px; letter-spacing:-.8px; margin:8px 0; }
+.product-meta .sub { font-size:12px; color:var(--muted); }
+.specs { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px; padding-top:16px; border-top:1px solid var(--line); }
+.spec label { display:block; font-size:9px; color:var(--muted); letter-spacing:1px; font-weight:800; margin-bottom:5px; }
+.spec strong { font-size:12px; }
+.product-links { display:flex; gap:8px; margin-top:18px; }
+.product-links a { color:var(--text); border:1px solid var(--line); padding:10px 11px; font-size:9px; font-weight:900; letter-spacing:.8px; text-decoration:none; }
+.purchase-panel { background:var(--panel); border:1px solid var(--line); min-width:0; }
+.table-scroll { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; min-width:690px; text-align:left; }
+th { background:var(--panel2); color:var(--muted); font-size:9px; text-transform:uppercase; letter-spacing:1px; padding:14px 13px; white-space:nowrap; }
+td { border-top:1px solid var(--line); padding:15px 13px; font-size:11px; white-space:nowrap; }
+td strong { font-size:11px; }
+.mono { font-family:'Courier New',monospace; }
+.pill { display:inline-block; padding:6px 8px; font-size:8px; font-weight:900; letter-spacing:.6px; background:var(--panel2); border:1px solid var(--line); }
+.pill.complete { background:#d7ff00; color:#111; border-color:#d7ff00; }
+.detail-link { display:inline-block; border:1px solid var(--line); background:var(--panel2); color:var(--text); padding:8px 10px; font:inherit; font-size:9px; font-weight:900; letter-spacing:.5px; text-decoration:none; cursor:pointer; }
+.modal-backdrop { position:fixed; inset:0; z-index:20; display:none; align-items:center; justify-content:center; padding:20px; background:#0009; }
+.modal-backdrop.open { display:flex; }
+.details-modal { width:min(760px,100%); max-height:90vh; overflow:auto; background:var(--panel); color:var(--text); border:1px solid var(--line); box-shadow:0 20px 70px #0005; }
+.modal-head { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:19px 22px; background:var(--panel2); border-bottom:1px solid var(--line); }
+.modal-head h2 { margin:0; font-size:18px; }
+.modal-close { background:var(--text); color:var(--panel); padding:9px 12px; }
+.detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; padding:20px; }
+.detail-item { min-width:0; border:1px solid var(--line); padding:13px; }
+.detail-item.wide { grid-column:1/-1; }
+.detail-label { color:var(--muted); font-size:9px; font-weight:900; letter-spacing:1px; text-transform:uppercase; margin-bottom:7px; }
+.detail-value { font-size:12px; line-height:1.55; overflow-wrap:anywhere; }
+.modal-note { padding:0 20px 20px; color:var(--muted); font-size:10px; line-height:1.5; }
+.empty { padding:50px 20px; text-align:center; color:var(--muted); }
+.empty strong { display:block; color:var(--text); font-size:17px; margin-bottom:8px; }
+.footer { border-top:1px solid var(--line); padding:22px clamp(20px,5vw,76px); display:flex; justify-content:space-between; gap:20px; color:var(--muted); font-size:9px; font-weight:800; letter-spacing:1px; }
+@media(max-width:900px) { .fields { grid-template-columns:repeat(2,minmax(0,1fr)); } .result-layout { grid-template-columns:1fr; } .product-card { display:grid; grid-template-columns:minmax(180px,.9fr) minmax(0,1fr); } .product-art { height:100%; min-height:240px; } }
+@media(max-width:560px) { .nav { height:65px; } .brand { font-size:25px; } .nav-right .status-text { display:none; } .hero { padding-top:34px; } .fields,.metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } .actions,.section-head,.results-head { align-items:flex-start; flex-direction:column; } .product-card { display:block; } .product-art { height:210px; } .footer { flex-direction:column; } .demo-tag { white-space:normal; } }
+</style>
+</head>
+<body>
+<div id="app">
+<div class="topline"></div>
+<header class="nav">
+  <div class="brand"><svg class="brand-mark" viewBox="0 0 100 50" aria-label="Nike-inspired swoosh"><path fill="currentColor" d="M3 31 L88 2 L49 38 Q37 47 22 41 Q10 37 3 31Z"/></svg><div>NIKE<small>PURCHASE INTELLIGENCE</small></div></div>
+  <div class="nav-right"><span><i class="status-dot"></i><span class="status-text">DATABASE ONLINE</span></span><span>INTERNAL TOOL / 01</span></div>
+</header>
+<section class="hero">
+  <div class="eyebrow">PRODUCT LOOKUP / TRANSACTION TRACE</div>
+  <h1>FIND THE PAIR.<br>TRACE THE PURCHASE.</h1>
+  <p>Search shoe records by model, size, colorway, style code, and more. Review matching purchase transactions in one place.</p>
+</section>
+<main class="wrap">
+  <div class="section-head"><div><h2>Product & purchase search</h2><p>Enter one or more details. Leave fields blank to broaden your search.</p></div><div class="demo-tag">SAMPLE DATA · NOT A LIVE NIKE SYSTEM</div></div>
+  <section class="search-card" aria-label="Search filters">
+    <form id="searchForm">
+      <div class="fields">
+        <div class="field"><label for="brand">Brand</label><select id="brand"><option value="">All brands</option><option>Nike</option><option>Jordan</option></select></div>
+        <div class="field"><label for="model">Model / product name</label><input id="model" placeholder="e.g. Air Force 1, Dunk Low"></div>
+        <div class="field"><label for="size">Shoe size (US)</label><select id="size"><option value="">Any size</option><option>5</option><option>5.5</option><option>6</option><option>6.5</option><option>7</option><option>7.5</option><option>8</option><option>8.5</option><option>9</option><option>9.5</option><option>10</option><option>10.5</option><option>11</option><option>11.5</option><option>12</option><option>13</option></select></div>
+        <div class="field"><label for="color">Colorway</label><input id="color" placeholder="e.g. White / Black"></div>
+        <div class="field"><label for="sku">Style code / SKU</label><input id="sku" placeholder="e.g. CW2288-111"></div>
+        <div class="field"><label for="channel">Purchase channel</label><select id="channel"><option value="">All channels</option><option>Nike.com</option><option>SNKRS</option><option>Nike Store</option><option>Retail Partner</option></select></div>
+        <div class="field"><label for="buyerFilter">Buyer name</label><input id="buyerFilter" placeholder="Search buyer name"></div>
+        <div class="field"><label for="cityFilter">City in Ukraine</label><input id="cityFilter" placeholder="e.g. Kyiv, Lviv, Odesa"></div>
+        <div class="field"><label for="fromDate">Purchase date from</label><input id="fromDate" type="date"></div>
+        <div class="field"><label for="toDate">Purchase date to</label><input id="toDate" type="date"></div>
+      </div>
+      <div class="actions"><div class="btns"><button class="primary" type="submit">SEARCH PURCHASES ↗</button><button class="secondary" type="button" id="resetBtn">RESET FILTERS</button></div><div class="hint">Searches this page's fictional sample records.<br>No personal or real transaction data is accessed.</div></div>
+    </form>
+  </section>
+  <section class="metrics" aria-label="Search summary"><div class="metric"><span>Matching purchases</span><strong id="metricPurchases">12</strong></div><div class="metric"><span>Distinct models</span><strong id="metricModels">5</strong></div><div class="metric"><span>Units purchased</span><strong id="metricUnits">15</strong></div><div class="metric"><span>Purchase value</span><strong id="metricValue">$1,740</strong></div></section>
+  <div class="results-head"><h2>Purchase records</h2><div class="result-count" id="resultCount">Showing 12 sample transactions</div></div>
+  <section class="result-layout">
+    <aside class="product-card" id="productCard">
+      <div class="product-art" id="productArt"></div>
+      <div class="product-meta"><div class="kicker" id="productBrand">NIKE SPORTSWEAR</div><h3 id="productName">Nike Air Force 1 '07</h3><div class="sub" id="productSubtitle">White / Black · Low-top lifestyle</div>
+        <div class="specs"><div class="spec"><label>STYLE CODE</label><strong id="productSku">CW2288-111</strong></div><div class="spec"><label>COLORWAY</label><strong id="productColor">White / Black</strong></div><div class="spec"><label>PRICE REF.</label><strong id="productPrice">$115.00</strong></div><div class="spec"><label>RECORD MATCH</label><strong id="productMatch">5 transactions</strong></div></div>
+        <div class="product-links"><a id="officialLink" href="https://www.nike.com/w/shoes-5sj3y" target="_blank" rel="noreferrer">NIKE CATALOG ↗</a><a href="#purchaseTable">VIEW PURCHASES ↓</a></div>
+      </div>
+    </aside>
+    <section class="purchase-panel" id="purchaseTable" aria-label="Purchase results">
+      <div class="table-scroll"><table><thead><tr><th>Order / receipt</th><th>Purchase date</th><th>Buyer name</th><th>Product</th><th>Size</th><th>Channel / city</th><th>Qty</th><th>Total</th><th>Status</th><th>Purchase details</th></tr></thead><tbody id="purchaseRows"></tbody></table></div>
+      <div class="empty" id="emptyState" hidden><strong>NO MATCHING PURCHASES</strong>Try a broader model name, another size, or remove a filter.</div>
+    </section>
+  </section>
+</main>
+<div class="modal-backdrop" id="detailsBackdrop" role="dialog" aria-modal="true" aria-labelledby="detailsTitle"><section class="details-modal"><header class="modal-head"><h2 id="detailsTitle">PURCHASE DETAILS</h2><button class="modal-close" id="closeDetails" type="button">CLOSE ✕</button></header><div class="detail-grid" id="detailsGrid"></div><div class="modal-note">DEMO RECORD ONLY. Names, addresses, receipt numbers, delivery details and masked payment references are fictional placeholders; this page is not connected to Nike, banks or delivery providers.</div></section></div>
+<footer class="footer"><span>NIKE PURCHASE INTELLIGENCE · DEMO INTERFACE</span><span>FICTIONAL SAMPLE RECORDS · NOT AFFILIATED WITH NIKE, INC.</span></footer>
+</div>
+<script>
+const records = [
+ {order:'NK-482190',date:'2026-08-19',brand:'Nike',model:"Air Force 1 '07",size:'10',color:'White / Black',sku:'CW2288-111',channel:'Nike.com',location:'Online',qty:1,price:115,status:'Completed',family:'airforce'},
+ {order:'NK-481772',date:'2026-08-12',brand:'Nike',model:"Air Force 1 '07",size:'9.5',color:'White / Black',sku:'CW2288-111',channel:'Nike Store',location:'Nashville, TN',qty:1,price:115,status:'Completed',family:'airforce'},
+ {order:'NK-479631',date:'2026-07-29',brand:'Nike',model:"Air Force 1 '07",size:'10',color:'White / Black',sku:'CW2288-111',channel:'Retail Partner',location:'Foot Locker',qty:1,price:109.99,status:'Completed',family:'airforce'},
+ {order:'NK-478920',date:'2026-07-22',brand:'Nike',model:"Air Force 1 '07",size:'8.5',color:'White / Black',sku:'CW2288-111',channel:'Nike.com',location:'Online',qty:2,price:230,status:'Completed',family:'airforce'},
+ {order:'NK-476105',date:'2026-07-04',brand:'Nike',model:"Air Force 1 '07",size:'10',color:'White / Black',sku:'CW2288-111',channel:'SNKRS',location:'Online',qty:1,price:115,status:'Returned',family:'airforce'},
+ {order:'SN-205811',date:'2026-08-22',brand:'Nike',model:'Dunk Low Retro',size:'9',color:'White / Black',sku:'DD1391-100',channel:'SNKRS',location:'Online',qty:1,price:120,status:'Completed',family:'dunk'},
+ {order:'NK-479842',date:'2026-07-30',brand:'Nike',model:'Dunk Low Retro',size:'10.5',color:'White / Black',sku:'DD1391-100',channel:'Nike Store',location:'Atlanta, GA',qty:1,price:120,status:'Completed',family:'dunk'},
+ {order:'NK-477451',date:'2026-07-15',brand:'Nike',model:'Dunk Low Retro',size:'9',color:'White / Black',sku:'DD1391-100',channel:'Retail Partner',location:'JD Sports',qty:1,price:114.99,status:'Processing',family:'dunk'},
+ {order:'NK-481018',date:'2026-08-09',brand:'Nike',model:'Air Max 90',size:'11',color:'White / Grey',sku:'CN8490-100',channel:'Nike.com',location:'Online',qty:1,price:135,status:'Completed',family:'airmax'},
+ {order:'NK-475829',date:'2026-06-28',brand:'Nike',model:'Air Max 90',size:'10',color:'White / Grey',sku:'CN8490-100',channel:'Nike Store',location:'Nashville, TN',qty:1,price:135,status:'Completed',family:'airmax'},
+ {order:'NK-480612',date:'2026-08-05',brand:'Nike',model:'Pegasus 41',size:'10',color:'Black / Anthracite',sku:'FD2722-001',channel:'Nike.com',location:'Online',qty:1,price:140,status:'Completed',family:'pegasus'},
+ {order:'NK-474318',date:'2026-06-17',brand:'Nike',model:'Pegasus 41',size:'9.5',color:'Black / Anthracite',sku:'FD2722-001',channel:'Retail Partner',location:'Dick’s Sporting Goods',qty:1,price:129.99,status:'Completed',family:'pegasus'},
+ {order:'NK-481306',date:'2026-08-11',brand:'Nike',model:'Cortez',size:'7.5',color:'White / University Red',sku:'DM4044-100',channel:'Nike.com',location:'Online',qty:1,price:90,status:'Completed',family:'cortez'},
+ {order:'NK-477101',date:'2026-07-12',brand:'Nike',model:'Cortez',size:'8',color:'White / University Red',sku:'DM4044-100',channel:'Nike Store',location:'Chicago, IL',qty:1,price:90,status:'Completed',family:'cortez'},
+ {order:'JR-203710',date:'2026-08-02',brand:'Jordan',model:'Air Jordan 1 Low',size:'10',color:'Black / Gym Red',sku:'553558- red',channel:'SNKRS',location:'Kyiv',qty:1,price:115,status:'Completed',family:'jordan'},
+ {order:'NK-UA-510201',date:'2026-09-12',brand:'Nike',model:"Air Force 1 '07",size:'8',color:'White / Black',sku:'CW2288-111',channel:'Nike.com',location:'Kyiv',qty:1,price:115,status:'Completed',family:'airforce'},
+ {order:'NK-UA-510202',date:'2026-09-10',brand:'Nike',model:'Dunk Low Retro',size:'9',color:'White / Black',sku:'DD1391-100',channel:'Nike Store',location:'Lviv',qty:1,price:120,status:'Completed',family:'dunk'},
+ {order:'NK-UA-510203',date:'2026-09-08',brand:'Nike',model:'Air Max 90',size:'10',color:'White / Grey',sku:'CN8490-100',channel:'Retail Partner',location:'Odesa',qty:1,price:135,status:'Completed',family:'airmax'},
+ {order:'NK-UA-510204',date:'2026-09-05',brand:'Nike',model:'Pegasus 41',size:'10.5',color:'Black / Anthracite',sku:'FD2722-001',channel:'Nike.com',location:'Dnipro',qty:1,price:140,status:'Completed',family:'pegasus'},
+ {order:'NK-UA-510205',date:'2026-09-03',brand:'Nike',model:'Cortez',size:'7',color:'White / University Red',sku:'DM4044-100',channel:'Retail Partner',location:'Kharkiv',qty:1,price:90,status:'Completed',family:'cortez'},
+ {order:'NK-UA-510206',date:'2026-08-30',brand:'Jordan',model:'Air Jordan 1 Low',size:'11',color:'Black / Gym Red',sku:'553558-RED',channel:'SNKRS',location:'Zaporizhzhia',qty:1,price:115,status:'Completed',family:'jordan'},
+ {order:'NK-UA-510207',date:'2026-08-27',brand:'Nike',model:'Dunk Low Retro',size:'8.5',color:'White / Black',sku:'DD1391-100',channel:'Nike Store',location:'Vinnytsia',qty:1,price:120,status:'Completed',family:'dunk'},
+ {order:'NK-UA-510208',date:'2026-08-25',brand:'Nike',model:"Air Force 1 '07",size:'9.5',color:'White / Black',sku:'CW2288-111',channel:'Retail Partner',location:'Poltava',qty:2,price:230,status:'Completed',family:'airforce'},
+ {order:'NK-UA-510209',date:'2026-08-22',brand:'Nike',model:'Air Max 90',size:'9',color:'White / Grey',sku:'CN8490-100',channel:'Nike.com',location:'Ivano-Frankivsk',qty:1,price:135,status:'Processing',family:'airmax'},
+ {order:'NK-UA-510210',date:'2026-08-20',brand:'Nike',model:'Pegasus 41',size:'8.5',color:'Black / Anthracite',sku:'FD2722-001',channel:'Retail Partner',location:'Ternopil',qty:1,price:129.99,status:'Completed',family:'pegasus'},
+ {order:'NK-UA-510211',date:'2026-08-18',brand:'Nike',model:'Cortez',size:'6.5',color:'White / University Red',sku:'DM4044-100',channel:'Nike Store',location:'Chernivtsi',qty:1,price:90,status:'Completed',family:'cortez'},
+ {order:'NK-UA-510212',date:'2026-08-15',brand:'Nike',model:'Dunk Low Retro',size:'12',color:'White / Black',sku:'DD1391-100',channel:'Nike.com',location:'Uzhhorod',qty:1,price:120,status:'Completed',family:'dunk'},
+ {order:'NK-UA-510213',date:'2026-08-12',brand:'Nike',model:"Air Force 1 '07",size:'7.5',color:'White / Black',sku:'CW2288-111',channel:'Retail Partner',location:'Rivne',qty:1,price:109.99,status:'Returned',family:'airforce'},
+ {order:'NK-UA-510214',date:'2026-08-09',brand:'Nike',model:'Air Max 90',size:'11',color:'White / Grey',sku:'CN8490-100',channel:'Nike Store',location:'Chernihiv',qty:1,price:135,status:'Completed',family:'airmax'},
+ {order:'NK-UA-510215',date:'2026-08-06',brand:'Nike',model:'Pegasus 41',size:'9',color:'Black / Anthracite',sku:'FD2722-001',channel:'Nike.com',location:'Lutsk',qty:1,price:140,status:'Completed',family:'pegasus'},
+ {order:'NK-UA-510216',date:'2026-08-03',brand:'Nike',model:'Cortez',size:'8',color:'White / University Red',sku:'DM4044-100',channel:'Retail Partner',location:'Mykolaiv',qty:1,price:90,status:'Completed',family:'cortez'},
+ {order:'NK-UA-510217',date:'2026-07-31',brand:'Nike',model:'Dunk Low Retro',size:'10',color:'White / Black',sku:'DD1391-100',channel:'Nike Store',location:'Khmelnytskyi',qty:1,price:120,status:'Completed',family:'dunk'},
+ {order:'NK-UA-510218',date:'2026-07-28',brand:'Jordan',model:'Air Jordan 1 Low',size:'9.5',color:'Black / Gym Red',sku:'553558-RED',channel:'SNKRS',location:'Cherkasy',qty:1,price:115,status:'Completed',family:'jordan'},
+ {order:'NK-UA-510219',date:'2026-07-25',brand:'Nike',model:"Air Force 1 '07",size:'10',color:'White / Black',sku:'CW2288-111',channel:'Nike.com',location:'Kropyvnytskyi',qty:1,price:115,status:'Completed',family:'airforce'},
+ {order:'NK-UA-510220',date:'2026-07-22',brand:'Nike',model:'Air Max 90',size:'8',color:'White / Grey',sku:'CN8490-100',channel:'Retail Partner',location:'Sumy',qty:1,price:135,status:'Completed',family:'airmax'}
+];
+const $ = id => document.getElementById(id);
+const ukBuyers = ['Анастасія Кравченко','Максим Петренко','Олена Бойко','Артем Коваленко','Катерина Шевчук','Богдан Романенко','Юлія Мороз','Денис Лисенко','Наталія Поліщук','Ілля Ткачук','Вікторія Климчук','Роман Павленко','Дарина Мельник','Тарас Олійник','Марина Козак','Сергій Савченко','Єлизавета Бондар','Михайло Гриценко','Соломія Дорошенко','Павло Іваненко','Ірина Марченко','Олексій Кучер','Вероніка Руденко','Владислав Зінченко','Анна Сидоренко','Єгор Кравець','Оксана Бабенко','Дмитро Черненко','Лілія Ковальчук','Марк Тимошенко'];
+const ukCities = ['Київ','Львів','Одеса','Дніпро','Харків','Запоріжжя','Вінниця','Полтава','Івано-Франківськ','Тернопіль','Чернівці','Ужгород','Рівне','Чернігів','Луцьк','Миколаїв','Хмельницький','Черкаси','Кропивницький','Суми','Житомир','Біла Церква','Кременчук','Кам’янець-Подільський','Бориспіль','Бровари','Мукачево','Дрогобич','Стрий','Олександрія'];
+const deliveryOptions = [{service:'Нова пошта',branch:'Відділення № 12 · демо',parcel:'DEMO-NP-840251'},{service:'Укрпошта',branch:'Відділення № 01001 · демо',parcel:'DEMO-UP-620174'},{service:'Meest Пошта',branch:'Пункт видачі № 04 · демо',parcel:'DEMO-ME-391805'},{service:'Нова пошта',branch:'Поштомат № 22418 · демо',parcel:'DEMO-NP-115906'}];
+records.forEach((r,i)=>{const city=ukCities[i%ukCities.length];const delivery=deliveryOptions[i%deliveryOptions.length];r.location=city;r.buyer=ukBuyers[i%ukBuyers.length];r.receipt='DEMO-RCP-'+String(720410+i).padStart(6,'0');r.address=`м. ${city}, вул. Демо, буд. ${10+(i%70)}, кв. ${1+(i%24)} (вигадана адреса)`;r.paymentMethod=['PrivatBank · Visa **** 1842','monobank · Mastercard **** 6107','Ощадбанк · Visa **** 2904','Оплата через Apple Pay · **** 7751'][i%4];r.delivery=delivery.service;r.branch=delivery.branch;r.parcel=delivery.parcel;r.phone=`+380 ** *** ** ${String(10+i).padStart(2,'0')} (масковано)`;r.email=`demo.buyer${i+1}@example.invalid`;r.notes=['Звичайне замовлення; демо-запис.','Попросив/ла не телефонувати до доставки.','Пакування подарункове; примітка вигадана.','Покупку оформлено онлайн; дані демонстраційні.'][i%4];});
+let filtered = records.slice();
+function money(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD'});}
+function shoeSvg(family, color){
+ const palette = family==='airforce'?['#f8f8f4','#d8d8d3','#111111']:family==='dunk'?['#f8f8f4','#111111','#f8f8f4']:family==='airmax'?['#e8e8e4','#a4a8ab','#f8f8f4']:family==='pegasus'?['#22252a','#111318','#e6e6e6']:family==='cortez'?['#f8f8f4','#c91e32','#f8f8f4']:['#111','#b21f32','#fff'];
+ return `<svg viewBox="0 0 500 270" role="img" aria-label="Illustrated sneaker product image"><defs><linearGradient id="upper" x1="0" x2="0.8" y1="0" y2="1"><stop offset="0" stop-color="${palette[0]}"/><stop offset="1" stop-color="${palette[1]}"/></linearGradient></defs><g transform="translate(7 7) rotate(-7 250 135)"><ellipse cx="258" cy="222" rx="196" ry="15" fill="#000" opacity=".12"/><path d="M45 168 Q78 154 106 115 L145 83 Q158 76 175 94 L220 133 Q247 155 290 163 L369 170 Q398 174 420 195 L444 211 Q453 221 439 229 L95 230 Q58 228 43 211 Q35 197 45 168Z" fill="url(#upper)" stroke="#777" stroke-opacity=".38" stroke-width="2"/><path d="M43 199 Q105 207 173 205 L336 205 Q406 205 449 215 L444 229 Q437 237 417 237 L91 237 Q50 235 41 218Z" fill="#f4f4ef" stroke="#aaa" stroke-width="2"/><path d="M53 219 Q153 229 247 224 T438 226" fill="none" stroke="#aaa" stroke-width="2"/><path d="M103 150 L144 101 Q156 91 170 104 L202 137 L178 179 L92 181Z" fill="${palette[2]}" opacity=".9"/><path d="M177 108 L212 143 L194 176 L160 171Z" fill="${palette[0]}" stroke="#777" stroke-opacity=".5"/><path d="M212 143 Q248 165 292 169 L322 176 L292 199 L201 191 L184 174Z" fill="${palette[2]}" opacity=".92"/><path d="M80 164 Q116 166 151 184 M90 151 Q126 153 162 173 M101 138 Q134 140 171 162" stroke="#777" stroke-opacity=".6" stroke-width="2" fill="none"/><path d="M139 105 L183 148 M151 99 L195 141 M164 101 L205 134 M174 110 L214 143" stroke="${palette[0]}" stroke-width="4" stroke-linecap="round"/><path d="M217 119 Q241 139 260 147 L236 177 Q221 181 205 167 L189 151Z" fill="${palette[0]}" opacity=".9"/><path d="M263 154 Q292 160 314 161 L346 174 L314 191 L263 180Z" fill="${palette[1]}" opacity=".95"/><path d="M277 158 L313 169 L297 186 L263 176Z" fill="${palette[0]}" opacity=".8"/><path d="M112 188 Q220 201 355 193" stroke="#777" stroke-width="2" stroke-opacity=".5" fill="none"/><path d="M335 179 Q380 176 407 195 L419 207 L374 207Z" fill="${palette[0]}" stroke="#777" stroke-opacity=".3"/><text x="338" y="194" font-size="12" font-family="Arial" font-weight="900" fill="${palette[2]}">NIKE</text></g></svg>`;
+}
+function renderProduct(list){
+ const first=list[0];
+ if(!first){$('productBrand').textContent='NO PRODUCT SELECTED';$('productName').textContent='No matching product';$('productSubtitle').textContent='Change or clear your search filters.';$('productSku').textContent='—';$('productColor').textContent='—';$('productPrice').textContent='—';$('productMatch').textContent='0 transactions';$('productArt').innerHTML=shoeSvg('airforce');return;}
+ const same=list.filter(r=>r.sku===first.sku);$('productBrand').textContent=first.brand.toUpperCase()+' FOOTWEAR';$('productName').textContent=first.model;$('productSubtitle').textContent=first.color+' · Footwear';$('productSku').textContent=first.sku;$('productColor').textContent=first.color;$('productPrice').textContent=money(first.price);$('productMatch').textContent=same.length+' transactions';$('productArt').innerHTML=shoeSvg(first.family,first.color);
+ const slug=first.model.toLowerCase().includes('air force')?'air-force-1':first.model.toLowerCase().includes('dunk')?'dunk':first.model.toLowerCase().includes('air max')?'air-max':first.model.toLowerCase().includes('pegasus')?'pegasus':first.model.toLowerCase().includes('cortez')?'cortez':'shoes';$('officialLink').href='https://www.nike.com/w/'+slug+'-shoes';
+}
+function render(){
+ const rows=$('purchaseRows');rows.innerHTML='';
+ filtered.forEach(r=>{const tr=document.createElement('tr');const statusClass=r.status==='Completed'?'complete':'';tr.innerHTML=`<td><strong class="mono">${r.order}</strong><br><span style="color:var(--muted);font-size:9px">${r.receipt}</span></td><td>${r.date}</td><td><strong>${r.buyer}</strong></td><td><strong>${r.model}</strong><br><span style="color:var(--muted);font-size:10px">${r.color}</span></td><td>${r.size}</td><td>${r.channel}<br><span style="color:var(--muted);font-size:10px">${r.location}, Україна</span></td><td>${r.qty}</td><td><strong>${money(r.price*r.qty)}</strong></td><td><span class="pill ${statusClass}">${r.status.toUpperCase()}</span></td><td><button type="button" class="detail-link" data-details="${r.order}">OPEN DETAILS ↗</button></td>`;rows.appendChild(tr);});
+ $('emptyState').hidden=filtered.length!==0;$('resultCount').textContent=`Showing ${filtered.length} of ${records.length} sample transactions`;
+ $('metricPurchases').textContent=filtered.length;$('metricModels').textContent=new Set(filtered.map(r=>r.sku)).size;$('metricUnits').textContent=filtered.reduce((s,r)=>s+r.qty,0);$('metricValue').textContent=money(filtered.reduce((s,r)=>s+r.price*r.qty,0));renderProduct(filtered);
+}
+ $('searchForm').addEventListener('submit',e=>{e.preventDefault();const brand=$('brand').value.toLowerCase(),model=$('model').value.trim().toLowerCase(),size=$('size').value,color=$('color').value.trim().toLowerCase(),sku=$('sku').value.trim().toLowerCase(),channel=$('channel').value,buyer=$('buyerFilter').value.trim().toLocaleLowerCase('uk-UA'),city=$('cityFilter').value.trim().toLocaleLowerCase('uk-UA'),from=$('fromDate').value,to=$('toDate').value;filtered=records.filter(r=>(!brand||r.brand.toLowerCase()===brand)&&(!model||r.model.toLowerCase().includes(model))&&(!size||r.size===size)&&(!color||r.color.toLowerCase().includes(color))&&(!sku||r.sku.toLowerCase().includes(sku))&&(!channel||r.channel===channel)&&(!buyer||r.buyer.toLocaleLowerCase('uk-UA').includes(buyer))&&(!city||r.location.toLocaleLowerCase('uk-UA').includes(city))&&(!from||r.date>=from)&&(!to||r.date<=to));render();});
+$('resetBtn').addEventListener('click',()=>{$('searchForm').reset();filtered=records.slice();render();});
+function openPurchaseDetails(order){const r=records.find(item=>item.order===order);if(!r)return;$('detailsTitle').textContent=`PURCHASE DETAILS · ${r.order}`;const items=[['Buyer name',r.buyer],['Receipt number',r.receipt],['Order number',r.order],['Purchase date',r.date],['Product',`${r.brand} ${r.model} · ${r.color}`],['Style code / SKU',r.sku],['Size / quantity',`${r.size} · Qty ${r.qty}`],['Purchase channel / city',`${r.channel} · ${r.location}, Ukraine`],['Order status',r.status],['Total paid',money(r.price*r.qty)],['Home / billing address',r.address],['Phone',r.phone],['Email',r.email],['Payment / bank reference',r.paymentMethod+' (masked demo reference only)'],['Delivery service',r.delivery],['Branch / parcel locker',r.branch],['Tracking reference',r.parcel],['Notes',r.notes]];$('detailsGrid').innerHTML=items.map(([label,value])=>`<div class="detail-item ${label==='Home / billing address'||label==='Notes'?'wide':''}"><div class="detail-label">${label}</div><div class="detail-value"></div></div>`).join('');[...$('detailsGrid').querySelectorAll('.detail-value')].forEach((el,i)=>el.textContent=items[i][1]);$('detailsBackdrop').classList.add('open');}
+document.addEventListener('click',e=>{const button=e.target.closest('[data-details]');if(button)openPurchaseDetails(button.dataset.details);});
+$('closeDetails').addEventListener('click',()=>$('detailsBackdrop').classList.remove('open'));
+$('detailsBackdrop').addEventListener('click',e=>{if(e.target===$('detailsBackdrop'))$('detailsBackdrop').classList.remove('open');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('detailsBackdrop').classList.remove('open');});
+render();
+</script>
+</body>
+</html>
