@@ -110,7 +110,7 @@ td strong { font-size: 11px; }
       <svg class="brand-icon" viewBox="0 0 100 80" aria-label="Стилізований знак УЗ"><path fill="#0755a6" d="M12 9h23v34c0 8 5 13 15 13s15-5 15-13V9h23v35c0 22-15 33-38 33S12 66 12 44z"/><path fill="#ffd500" d="M5 2h90v7H5zM5 70h90v7H5z"/></svg>
       <div><div class="brand-name">УКРЗАЛІЗНИЦЯ</div><div class="brand-sub">ПАСАЖИРСЬКІ ЗАПИСИ · DEMO</div></div>
     </div>
-    <div class="nav-right"><span class="live"><i class="dot"></i> DEMO-СИСТЕМА АКТИВНА</span><span class="nav-extra">ВНУТРІШНІЙ ІНТЕРФЕЙС / 03</span></div>
+    <div class="nav-right"><span class="live"><i class="dot"></i> СИСТЕМА АКТИВНА</span><span class="nav-extra">ВНУТРІШНІЙ ІНТЕРФЕЙС / 03</span></div>
   </header>
   <div class="demo-banner">⚠ НАВЧАЛЬНИЙ МАКЕТ · УСІ ІМЕНА, КВИТКИ ТА СТАТУСИ ВИГАДАНІ · НЕ ПІДКЛЮЧЕНО ДО СИСТЕМ УЗ</div>
   <section class="hero"><div class="eyebrow">ПАСАЖИРСЬКИЙ ОБЛІК / ПОШУК КВИТКІВ</div><h1>ЗНАЙТИ ЗАПИС.<br>ПЕРЕВІРИТИ ПОЇЗДКУ.</h1><p>Демонстраційний пошук квиткових записів за ім’ям пасажира. Переглядайте маршрут, дату, вагон, місце, оплату та статус посадки в одному інтерфейсі.</p></section>
@@ -136,23 +136,23 @@ td strong { font-size: 11px; }
 <script>
 const records = [
  // Усі записи нижче — вигадані демонстраційні дані, а не реальна історія подорожей.
- {name:'Степан Антонюк',ticket:'DEMO-7810426',date:'2026-07-10',train:'№ DEMO-079',from:'Запоріжжя-1',to:'Львів',depart:'18:42',arrive:'10:15',car:'06',seat:'24',className:'Купе',payment:'Сплачено',boarding:'Так',price:865.00},
- {name:'Степан Антонюк',ticket:'DEMO-7811010',date:'2026-10-10',train:'№ DEMO-080',from:'Львів',to:'Запоріжжя-1',depart:'16:20',arrive:'08:05',car:'04',seat:'17',className:'Купе',payment:'Сплачено',boarding:'Очікується',price:892.00},
- {name:'Степан Антонюк',ticket:'DEMO-7800612',date:'2026-06-12',train:'№ DEMO-041',from:'Запоріжжя-1',to:'Київ-Пас.',depart:'20:05',arrive:'06:40',car:'08',seat:'31',className:'Плацкарт',payment:'Сплачено',boarding:'Так',price:498.00},
- {name:'Степан Антонюк',ticket:'DEMO-7790421',date:'2026-04-21',train:'№ DEMO-086',from:'Львів',to:'Київ-Пас.',depart:'21:15',arrive:'06:30',car:'03',seat:'12',className:'Купе',payment:'Сплачено',boarding:'Так',price:735.00},
- {name:'Степан Антонюк',ticket:'DEMO-7780214',date:'2026-02-14',train:'№ DEMO-006',from:'Запоріжжя-1',to:'Дніпро-Головний',depart:'07:30',arrive:'10:05',car:'02',seat:'08',className:'Сидячий',payment:'Повернено',boarding:'Ні',price:0},
- {name:'Марія Коваль',ticket:'DEMO-1048271',date:'2026-09-18',train:'№ 079О',from:'Київ-Пас.',to:'Львів',depart:'23:10',arrive:'07:40',car:'05',seat:'18',className:'Купе',payment:'Сплачено',boarding:'Так',price:684.50},
- {name:'Марія Коваль',ticket:'DEMO-1049918',date:'2026-08-29',train:'№ 041П',from:'Львів',to:'Київ-Пас.',depart:'22:15',arrive:'06:20',car:'03',seat:'12',className:'Купе',payment:'Сплачено',boarding:'Так',price:712.00},
- {name:'Марія Коваль',ticket:'DEMO-1053026',date:'2026-10-22',train:'№ 749Д',from:'Київ-Пас.',to:'Харків-Пас.',depart:'06:15',arrive:'11:02',car:'02',seat:'07',className:'Інтерсіті+',payment:'Сплачено',boarding:'Очікується',price:921.00},
- {name:'Олександр Мельник',ticket:'DEMO-2084401',date:'2026-09-20',train:'№ 038К',from:'Одеса-Головна',to:'Київ-Пас.',depart:'18:30',arrive:'06:12',car:'08',seat:'31',className:'Плацкарт',payment:'Сплачено',boarding:'Ні',price:398.00},
- {name:'Олександр Мельник',ticket:'DEMO-2089107',date:'2026-07-14',train:'№ 105К',from:'Київ-Пас.',to:'Одеса-Головна',depart:'21:05',arrive:'07:55',car:'04',seat:'22',className:'Купе',payment:'Повернено',boarding:'Ні',price:0},
- {name:'Ірина Шевченко',ticket:'DEMO-3306720',date:'2026-09-15',train:'№ 091Л',from:'Київ-Пас.',to:'Чернівці',depart:'18:40',arrive:'09:15',car:'06',seat:'14',className:'Купе',payment:'Сплачено',boarding:'Так',price:756.00},
- {name:'Ірина Шевченко',ticket:'DEMO-3308852',date:'2026-08-02',train:'№ 086Л',from:'Чернівці',to:'Львів',depart:'22:20',arrive:'05:45',car:'09',seat:'44',className:'Плацкарт',payment:'Сплачено',boarding:'Так',price:326.00},
- {name:'Андрій Бондар',ticket:'DEMO-4481003',date:'2026-09-11',train:'№ 015О',from:'Харків-Пас.',to:'Яремче',depart:'18:55',arrive:'10:30',car:'07',seat:'09',className:'Купе',payment:'Сплачено',boarding:'Так',price:842.00},
- {name:'Андрій Бондар',ticket:'DEMO-4485508',date:'2026-09-27',train:'№ 724К',from:'Київ-Пас.',to:'Харків-Пас.',depart:'14:07',arrive:'18:45',car:'01',seat:'16',className:'Інтерсіті+',payment:'Сплачено',boarding:'Ні',price:634.00},
- {name:'Софія Ткаченко',ticket:'DEMO-5529304',date:'2026-09-06',train:'№ 006П',from:'Запоріжжя-1',to:'Київ-Пас.',depart:'19:12',arrive:'06:05',car:'10',seat:'27',className:'Плацкарт',payment:'Сплачено',boarding:'Так',price:442.00},
- {name:'Дмитро Савчук',ticket:'DEMO-6672105',date:'2026-09-21',train:'№ 749Д',from:'Київ-Пас.',to:'Харків-Пас.',depart:'06:15',arrive:'11:02',car:'03',seat:'05',className:'Інтерсіті+',payment:'Сплачено',boarding:'Так',price:921.00},
- {name:'Дмитро Савчук',ticket:'DEMO-6672990',date:'2026-09-23',train:'№ 102К',from:'Харків-Пас.',to:'Київ-Пас.',depart:'19:20',arrive:'00:06',car:'04',seat:'21',className:'Купе',payment:'Сплачено',boarding:'Ні',price:615.00}
+ {name:'Степан Антонюк',ticket:'7810426',date:'2026-07-10',train:'№ 079',from:'Запоріжжя-1',to:'Львів',depart:'18:42',arrive:'10:15',car:'06',seat:'24',className:'Купе',payment:'Сплачено',boarding:'Так',price:865.00},
+ {name:'Степан Антонюк',ticket:'7811010',date:'2026-10-10',train:'№ 080',from:'Львів',to:'Запоріжжя-1',depart:'16:20',arrive:'08:05',car:'04',seat:'17',className:'Купе',payment:'Сплачено',boarding:'Очікується',price:892.00},
+ {name:'Степан Антонюк',ticket:'7800612',date:'2026-06-12',train:'№ 041',from:'Запоріжжя-1',to:'Київ-Пас.',depart:'20:05',arrive:'06:40',car:'08',seat:'31',className:'Плацкарт',payment:'Сплачено',boarding:'Так',price:498.00},
+ {name:'Степан Антонюк',ticket:'7790421',date:'2026-04-21',train:'№ 086',from:'Львів',to:'Київ-Пас.',depart:'21:15',arrive:'06:30',car:'03',seat:'12',className:'Купе',payment:'Сплачено',boarding:'Так',price:735.00},
+ {name:'Степан Антонюк',ticket:'7780214',date:'2026-02-14',train:'№ 006',from:'Запоріжжя-1',to:'Дніпро-Головний',depart:'07:30',arrive:'10:05',car:'02',seat:'08',className:'Сидячий',payment:'Повернено',boarding:'Ні',price:0},
+ {name:'Марія Коваль',ticket:'1048271',date:'2026-09-18',train:'№ 079О',from:'Київ-Пас.',to:'Львів',depart:'23:10',arrive:'07:40',car:'05',seat:'18',className:'Купе',payment:'Сплачено',boarding:'Так',price:684.50},
+ {name:'Марія Коваль',ticket:'1049918',date:'2026-08-29',train:'№ 041П',from:'Львів',to:'Київ-Пас.',depart:'22:15',arrive:'06:20',car:'03',seat:'12',className:'Купе',payment:'Сплачено',boarding:'Так',price:712.00},
+ {name:'Марія Коваль',ticket:'1053026',date:'2026-10-22',train:'№ 749Д',from:'Київ-Пас.',to:'Харків-Пас.',depart:'06:15',arrive:'11:02',car:'02',seat:'07',className:'Інтерсіті+',payment:'Сплачено',boarding:'Очікується',price:921.00},
+ {name:'Олександр Мельник',ticket:'2084401',date:'2026-09-20',train:'№ 038К',from:'Одеса-Головна',to:'Київ-Пас.',depart:'18:30',arrive:'06:12',car:'08',seat:'31',className:'Плацкарт',payment:'Сплачено',boarding:'Ні',price:398.00},
+ {name:'Олександр Мельник',ticket:'2089107',date:'2026-07-14',train:'№ 105К',from:'Київ-Пас.',to:'Одеса-Головна',depart:'21:05',arrive:'07:55',car:'04',seat:'22',className:'Купе',payment:'Повернено',boarding:'Ні',price:0},
+ {name:'Ірина Шевченко',ticket:'3306720',date:'2026-09-15',train:'№ 091Л',from:'Київ-Пас.',to:'Чернівці',depart:'18:40',arrive:'09:15',car:'06',seat:'14',className:'Купе',payment:'Сплачено',boarding:'Так',price:756.00},
+ {name:'Ірина Шевченко',ticket:'3308852',date:'2026-08-02',train:'№ 086Л',from:'Чернівці',to:'Львів',depart:'22:20',arrive:'05:45',car:'09',seat:'44',className:'Плацкарт',payment:'Сплачено',boarding:'Так',price:326.00},
+ {name:'Андрій Бондар',ticket:'4481003',date:'2026-09-11',train:'№ 015О',from:'Харків-Пас.',to:'Яремче',depart:'18:55',arrive:'10:30',car:'07',seat:'09',className:'Купе',payment:'Сплачено',boarding:'Так',price:842.00},
+ {name:'Андрій Бондар',ticket:'4485508',date:'2026-09-27',train:'№ 724К',from:'Київ-Пас.',to:'Харків-Пас.',depart:'14:07',arrive:'18:45',car:'01',seat:'16',className:'Інтерсіті+',payment:'Сплачено',boarding:'Ні',price:634.00},
+ {name:'Софія Ткаченко',ticket:'5529304',date:'2026-09-06',train:'№ 006П',from:'Запоріжжя-1',to:'Київ-Пас.',depart:'19:12',arrive:'06:05',car:'10',seat:'27',className:'Плацкарт',payment:'Сплачено',boarding:'Так',price:442.00},
+ {name:'Дмитро Савчук',ticket:'6672105',date:'2026-09-21',train:'№ 749Д',from:'Київ-Пас.',to:'Харків-Пас.',depart:'06:15',arrive:'11:02',car:'03',seat:'05',className:'Інтерсіті+',payment:'Сплачено',boarding:'Так',price:921.00},
+ {name:'Дмитро Савчук',ticket:'6672990',date:'2026-09-23',train:'№ 102К',from:'Харків-Пас.',to:'Київ-Пас.',depart:'19:20',arrive:'00:06',car:'04',seat:'21',className:'Купе',payment:'Сплачено',boarding:'Ні',price:615.00}
 ];
 const $ = id => document.getElementById(id);
 let filtered = [];
