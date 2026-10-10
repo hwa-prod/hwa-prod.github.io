@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drive Access Demo</title>
+<style>
+:root { color-scheme: light dark; --bg: light-dark(#f7f9fc,#15171b); --surface: light-dark(#fff,#202329); --text: light-dark(#202124,#f1f3f4); --muted: light-dark(#5f6368,#b8bdc5); --line: light-dark(#dadce0,#454a53); --accent: light-dark(#3569d4,#8ab4f8); --accentText: light-dark(#fff,#15243b); --soft: light-dark(#eaf1ff,#27364d); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 Arial, Helvetica, sans-serif; }
+#app { min-height: 100vh; width: 100%; background-color: var(--bg); }
+.topbar { height: 66px; display: flex; align-items: center; gap: 14px; padding: 0 28px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.brand-icon { width: 32px; height: 32px; border-radius: 10px; background: var(--soft); color: var(--accent); display: grid; place-items: center; font-size: 20px; font-weight: 700; }
+.brand { font-size: 19px; font-weight: 600; letter-spacing: -.3px; }
+.demo-tag { margin-left: auto; color: var(--muted); border: 1px solid var(--line); padding: 5px 9px; border-radius: 999px; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+main { min-height: calc(100vh - 66px); display: grid; place-items: center; padding: 36px 18px; }
+.login-card { width: min(100%, 430px); background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 36px; box-shadow: 0 8px 28px #0000000b; }
+.logo-large { width: 52px; height: 52px; border-radius: 16px; background: var(--soft); display: grid; place-items: center; color: var(--accent); font-size: 29px; margin-bottom: 24px; }
+h1 { font-size: 27px; line-height: 1.2; letter-spacing: -.6px; margin: 0 0 9px; font-weight: 600; }
+.subtitle { color: var(--muted); margin: 0 0 28px; }
+label { display: block; font-size: 13px; font-weight: 600; margin: 17px 0 7px; }
+input { display: block; width: 100%; height: 48px; border: 1px solid var(--line); border-radius: 10px; padding: 0 13px; background: var(--bg); color: var(--text); font: inherit; outline: none; }
+input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+button { border: 0; border-radius: 10px; min-height: 46px; padding: 0 18px; background: var(--accent); color: var(--accentText); font: inherit; font-weight: 600; cursor: pointer; }
+button:hover { filter: brightness(1.04); }
+.submit { width: 100%; margin-top: 24px; }
+.demo-hint { margin-top: 20px; padding: 13px 14px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+.demo-hint strong { color: var(--text); }
+.message { margin-top: 12px; color: #d93025; font-size: 13px; min-height: 18px; }
+.footnote { margin: 20px 0 0; text-align: center; color: var(--muted); font-size: 12px; }
+.hidden { display: none !important; }
+.drive-page { width: min(100%, 1000px); align-self: start; }
+.drive-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin: 4px 0 28px; }
+.drive-head h1 { margin-bottom: 6px; }
+.searchbar { max-width: 450px; width: 100%; margin-bottom: 22px; }
+.files { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 14px; }
+.file { padding: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 15px; min-height: 120px; }
+.file-icon { font-size: 26px; margin-bottom: 13px; }
+.file-name { font-weight: 600; }
+.file-meta { color: var(--muted); font-size: 12px; margin-top: 5px; }
+.notice { color: var(--muted); font-size: 12px; margin-top: 24px; }
+@media (max-width: 480px) { .topbar { padding: 0 16px; } .login-card { padding: 26px 22px; } .demo-tag { font-size: 9px; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar"><div class="brand-icon" aria-hidden="true">▤</div><div class="brand">Drive Access</div><div class="demo-tag">Demo · no real account</div></header>
+  <main>
+    <section id="loginView" class="login-card" aria-labelledby="loginTitle">
+      <div class="logo-large" aria-hidden="true">▤</div>
+      <h1 id="loginTitle">Sign in to your drive</h1>
+      <p class="subtitle">Use the demo credentials to continue to your files.</p>
+      <form id="loginForm">
+        <label for="email">Email or username</label>
+        <input id="email" name="email" type="text" autocomplete="off" placeholder="name@example.com" required>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="off" placeholder="Enter demo password" required>
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+        <button class="submit" type="submit">Continue</button>
+      </form>
+      <div class="demo-hint"><strong>Demo sign-in</strong><br>Username: <code>demo@sample.test</code><br>Password: <code>demo123</code></div>
+      <p class="footnote">This is a fictional interface for demonstration. Do not enter a real password.</p>
+    </section>
+    <section id="driveView" class="drive-page hidden" aria-labelledby="driveTitle">
+      <div class="drive-head"><div><h1 id="driveTitle">My Drive</h1><div class="subtitle" style="margin:0">Welcome to your demo workspace.</div></div><button id="signOut" type="button">Sign out</button></div>
+      <input class="searchbar" id="fileSearch" type="search" placeholder="Search demo files…" aria-label="Search demo files">
+      <div id="files" class="files">
+        <article class="file" data-name="project brief"><div class="file-icon">📄</div><div class="file-name">Project Brief.docx</div><div class="file-meta">Word document · 128 KB</div></article>
+        <article class="file" data-name="team budget"><div class="file-icon">📊</div><div class="file-name">Team Budget.xlsx</div><div class="file-meta">Spreadsheet · 64 KB</div></article>
+        <article class="file" data-name="design review"><div class="file-icon">🖼️</div><div class="file-name">Design Review.png</div><div class="file-meta">Image · 2.4 MB</div></article>
+        <article class="file" data-name="meeting notes"><div class="file-icon">📝</div><div class="file-name">Meeting Notes.txt</div><div class="file-meta">Text file · 12 KB</div></article>
+        <article class="file" data-name="quarterly report"><div class="file-icon">📕</div><div class="file-name">Quarterly Report.pdf</div><div class="file-meta">PDF document · 890 KB</div></article>
+        <article class="file" data-name="trip photos"><div class="file-icon">🗂️</div><div class="file-name">Trip Photos</div><div class="file-meta">Folder · 18 items</div></article>
+      </div>
+      <p class="notice">Demo workspace only. Sign-in is checked locally in this page; credentials are not sent or saved.</p>
+    </section>
+  </main>
+</div>
+<script>
+const loginForm = document.getElementById('loginForm');
+const loginView = document.getElementById('loginView');
+const driveView = document.getElementById('driveView');
+const message = document.getElementById('message');
+loginForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  const username = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  if (username === 'demo@sample.test' && password === 'demo123') {
+    message.textContent = '';
+    loginView.classList.add('hidden');
+    driveView.classList.remove('hidden');
+  } else {
+    message.textContent = 'Those demo credentials do not match. Try the sample credentials shown below.';
+  }
+});
+document.getElementById('signOut').addEventListener('click', function () {
+  driveView.classList.add('hidden');
+  loginView.classList.remove('hidden');
+  loginForm.reset();
+  message.textContent = '';
+});
+document.getElementById('fileSearch').addEventListener('input', function (event) {
+  const query = event.target.value.toLowerCase().trim();
+  document.querySelectorAll('.file').forEach(function (file) {
+    file.classList.toggle('hidden', !file.dataset.name.includes(query));
+  });
+});
+</script>
+</body>
+</html>
