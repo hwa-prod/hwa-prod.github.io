@@ -66,7 +66,7 @@ function showLarge(m){const c=$('#modalContent');c.replaceChildren();let el;if(m
 function closeModal(){$('#modal').classList.remove('open');const v=$('#modalContent video');if(v)v.pause()}
 function scatter(){document.querySelectorAll('.floaty').forEach(c=>{if(!c.classList.contains('paused'))position(c)});for(let i=0;i<10;i++){const s=document.createElement('span');s.textContent=['💥','✨','🎉','💖','🎈','⭐'][Math.floor(Math.random()*6)];s.style.cssText=`position:absolute;z-index:4;left:${random(0,95)}%;top:${random(120,95)}%;font-size:${random(22,60)}px;pointer-events:none;animation:spin ${random(1,4)}s ease-out forwards`;stage.append(s);setTimeout(()=>s.remove(),3500)}say('CHAOS LEVEL INCREASED. THIS IS FINE. 💥')}
 function shuffle(){[...document.querySelectorAll('.floaty')].sort(()=>Math.random()-.5).forEach((c,i)=>{c.style.zIndex=i%7;position(c);c.style.setProperty('--rot',random(-25,25)+'deg')});say('MEMORIES SHUFFLED LIKE A DECK OF EMOTIONS 🎲')}
-function freeze(){frozenAll=!frozenAll;document.querySelectorAll('.floaty').forEach(c=>c.classList.toggle('paused',frozenAll));$('#pause').textContent=frozenAll?'UNFREEZE EVERYTHING ▶️':'FREEZE! 🧊';say(frozenAll?'EVERYTHING IS STILL. BREATHE.':'RELEASE THE GREMLINS!')}
+function freeze(){frozenAll=!frozenAll;document.querySelectorAll('.floaty').forEach(c=>c.classList.toggle('paused',frozenAll));$('#pause').textContent=frozenAll?'ОТОМРИ! ▶️':'ЗАМРИ! 🧊';say(frozenAll?'EVERYTHING IS STILL. BREATHE.':'RELEASE THE GREMLINS!')}
 async function clearWall(){if(!memories.length)return; if(!confirm('Delete all saved photos/videos from this browser? This cannot be undone.'))return;for(const m of memories){await removeRecord(m.id).catch(()=>{});if(urls.has(m.id)){URL.revokeObjectURL(urls.get(m.id));urls.delete(m.id)}}memories=[];document.querySelectorAll('.floaty').forEach(e=>e.remove());updateStats();say('WALL CLEARED. THE MEMORIES ARE STILL IN YOUR HEART 🥹')}
 function confetti(){const c=$('#confetti');for(let i=0;i<75;i++){const p=document.createElement('i');p.style.left=random(0,100)+'%';p.style.background=palette[i%palette.length];p.style.setProperty('--drift',random(-180,180)+'px');p.style.animationDuration=random(5,14)+'s';p.style.animationDelay=random(-14,0)+'s';p.style.transform=`rotate(${random(0,360)}deg)`;c.append(p)}}
 const songLibrary={
@@ -79,16 +79,16 @@ const songLibrary={
  function stopMusic(){
   soundOn=false;
   if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;currentAudio=null}
-  $('#music').textContent='PLAY MUSIC ▶️';
+  $('#music').textContent='ЗАВОДИ ШАРИАНКУ ▶️';
  }
  function playSong(){
-  if(soundOn){stopMusic();say('MUSIC STOPPED. THE CAKE HAS BEEN SILENCED.');return}
+  if(soundOn){stopMusic();say('ПОЗАКРИВАЛИСЬ ПИЗДАКИ.');return}
   const song=songLibrary[$('#song').value]||songLibrary.happybday1;
   currentAudio=new Audio(song.file);
   currentAudio.loop=true;
   currentAudio.volume=0.8;
   soundOn=true;
-  $('#music').textContent='STOP MUSIC 🔇';
+  $('#music').textContent='ШАРМАНКА ШАШ 🔇';
   currentAudio.addEventListener('error',()=>{
    stopMusic();
    say('Could not load '+song.file+'. Make sure the MP3 is beside this HTML file.');
